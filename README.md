@@ -50,7 +50,7 @@ Open your browser and navigate to ```http://localhost:3000``` to explore the por
 📂 Project Structure
 bash
 
-├── client/                 # Frontend React application
+```├── client/                 # Frontend React application
 │   ├── src/
 │   │   ├── components/     # Reusable components
 │   │   ├── pages/          # Application pages
@@ -62,7 +62,7 @@ bash
 │   └── controllers/        # Request handlers
 ├── .env                    # Environment variables
 ├── package.json            # NPM scripts and dependencies
-└── README.md               # Project documentation
+└── README.md               # Project documentation```
 🌟 Contributing
 Feel free to fork this repository and contribute by submitting a pull request. Contributions are always welcome!
 
