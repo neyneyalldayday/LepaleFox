@@ -1,4 +1,0 @@
-DROP DATABASE IF EXISTS lepale_fox;
-
-CREATE DATABASE lepale_fox;
-
