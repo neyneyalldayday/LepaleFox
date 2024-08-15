@@ -1,3 +1,44 @@
 .hero-container{
     background-color: blueviolet;
+    margin-top: 0;
+    position: relative;
 }
+
+#hero{
+    width: 100%;
+    
+}
+.hero-content{
+    position:absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 
+    0 0 8px rgba(0, 0, 0, 0.8), 
+    0 0 4px rgba(0, 0, 0, 0.6), 
+    0 0 6px rgba(255, 255, 255, 0.4), 
+    0 0 2px rgba(255, 255, 255, 0.2); 
+    
+}
+
+
+@keyframes dropIn {
+    0% {
+      transform: translateY(-150px);
+      opacity: 0;
+    }
+    80% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .animated-char {
+    display: inline-block; /* Use inline-block to keep the element inline but allow setting width/height */
+    animation: dropIn 3s ease-out forwards;
+    animation-fill-mode: forwards; /* Keeps the character in place after animation */
+  }
