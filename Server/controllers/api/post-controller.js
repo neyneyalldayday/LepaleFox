@@ -33,18 +33,24 @@ router.put('/:id', apiGuard, async (req, res) => {
 
 router.delete('/:id', apiGuard, async (req, res) => {
   try {
-    const [affectedRows] = Post.destroy({
+    const result = await Post.destroy({
       where: {
         id: req.params.id,
       },
     });
-
-    if (affectedRows > 0) {
-      res.status(200).end();
-    } else {
-      res.status(404).end();
+    
+    if (Array.isArray(result) && result.length > 0) {
+      const [affectedRows] = result;
+      if (affectedRows > 0) {
+        res.status(200).end();
+      } else {
+        res.status(404).end();
+      }
+    } else {      
+      res.status(404).end(); 
     }
   } catch (err) {
+    console.error(err)
     res.status(500).json(err);
   }
 });
