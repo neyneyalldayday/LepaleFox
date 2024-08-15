@@ -47,8 +47,14 @@ bash
 npm run dev
 Access the Site:
 Open your browser and navigate to ```http://localhost:3000``` to explore the portfolio.
+
+
+## screenshots 
+
+![hero](https://github.com/user-attachments/assets/7b2f55a6-202e-43bf-a648-f84c3a58c0fa)
+
+
 📂 Project Structure
-bash
 
 ```├── client/                 # Frontend React application
 │   ├── src/
@@ -68,5 +74,7 @@ Feel free to fork this repository and contribute by submitting a pull request. C
 
 📄 License
 This project is licensed under the MIT License.
+
+![hero](https://github.com/user-attachments/assets/7b2f55a6-202e-43bf-a648-f84c3a58c0fa)
 
 Happy coding! 🎉
