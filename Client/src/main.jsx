@@ -8,6 +8,9 @@ import Hero from './pages/Hero/index.jsx';
 import Blog from './pages/Blog'
 import Contact from './pages/Contact/index.jsx'
 import LetMeIn from './components/LetMeIn/index.jsx'
+import BlogInput from './components/BlogInput/index.jsx'
+
+
 
 const router = createBrowserRouter([
   {
@@ -31,6 +34,11 @@ const router = createBrowserRouter([
         path: '/letmein',
         element: <LetMeIn/>
       },
+      {
+        path: '/blog-input',
+        element: <BlogInput />
+      },
+     
     ]
   }
 ])

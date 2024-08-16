@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {letMeIn} from '../../utils/Api'
 
 const LetMeIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     if (e.target.id === 'username') {
@@ -27,6 +29,7 @@ const LetMeIn = () => {
         setUsername('');
         setPassword('');
         setErrorMessage('');
+        navigate('/blog-input');
       })
       .catch(error => {
         setErrorMessage(error.message); // Display the error message received from the server
