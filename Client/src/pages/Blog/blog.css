@@ -1,0 +1,41 @@
+.image-container {
+    position: relative;
+}
+.post-container{
+ padding: 3rem;
+ margin: 3rem;
+ border-radius: 16px;
+ box-shadow: 8px 4px 4px rgba(0,0,0,0.6);
+ display: flex;
+ gap:1rem;
+ flex-wrap: wrap;
+}
+
+.post-container > * {
+    flex:1;
+}
+
+.post-card{
+  border-radius: 8px;
+  box-shadow: 8px 4px 8px  rgba(0,0,0,0.6);
+  background-color: rgb(235, 158, 242);
+  padding: .5rem;
+}
+
+
+.blog-heading{
+    position:absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 
+    0 0 8px rgba(0, 0, 0, 0.8), 
+    0 0 4px rgba(0, 0, 0, 0.6), 
+    0 0 6px rgba(255, 255, 255, 0.4), 
+    0 0 2px rgba(255, 255, 255, 0.2);  
+}
+
+
+.blog-image{
+    width: 100%;
+}

@@ -56,12 +56,10 @@ router.delete('/:id', apiGuard, async (req, res) => {
 });
 
 
-router.get('/checkposts',apiGuard, async (req,res)=> {
+router.get('/checkposts', async (req,res)=> {
     try {
         console.log('User ID:', req.session.user_id);
-       const allmyPosts = await Post.findAll({
-        where: { userId: req.session.user_id }
-       });
+       const allmyPosts = await Post.findAll();
        console.log('Found Posts:', allmyPosts);
        res.status(200).json(allmyPosts); 
     } catch (err) {

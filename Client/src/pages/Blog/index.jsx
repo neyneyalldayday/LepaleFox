@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { allPosts } from '../../utils/Api';
-
+import './blog.css'
+import image3 from '../../assets/image3.jpg'
 const Blog = () => {
   const [posts, setPosts] = useState([]);
 
@@ -18,14 +19,23 @@ const Blog = () => {
   },[]);
 
     return (
-      <div>
+      <>
+      <div className='image-container'>
+        <img className='blog-image' src={image3} alt="" />
+        <div className='blog-heading'>
+            <h1>Blog</h1>
+        </div>        
+      </div>
+      <div className='post-container'>
         {posts.map((post, index) => (
-          <div key={index}>
+          <div className='post-card' key={index}>
             <h2>{post.title}</h2>
             <p>{post.body}</p>
           </div>
         ))}
       </div>
+      </>
+      
     );
 
 }

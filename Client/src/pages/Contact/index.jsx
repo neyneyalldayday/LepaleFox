@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import emailjs from 'emailjs-com';
+import './contact.css';
+import image2 from '../../assets/image2.jpg'
 
 const Contact = () => {
     const formRef = useRef();
@@ -23,7 +25,13 @@ const Contact = () => {
 
   return (
     <>
-    <form ref={formRef} onSubmit={sendEmail}>
+    <div className='image-container'>
+      <img  className="contact-image" src={image2} alt="" />
+      <div className='contact-heading'>
+        <h1>Send Me A Message</h1>
+      </div>     
+    </div>
+    <form className="contact-form" ref={formRef} onSubmit={sendEmail}>
       <label>Name</label>
       <input type="text" name="user_name" />
 
