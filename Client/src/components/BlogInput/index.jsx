@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postIt } from '../../utils/Api'
+import "../../pages/Blog/blog.css"
 
 const BlogInput = () => {
 
