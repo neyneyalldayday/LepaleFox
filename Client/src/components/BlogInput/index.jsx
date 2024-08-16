@@ -23,7 +23,7 @@ const BlogInput = () => {
     e.preventDefault();
   
     // Prepare the data to send to the server
-    const data = { title, body };
+    const data = { title:title, body: body };
   
     // Call the letMeIn function with the form data
     postIt(data)
@@ -32,7 +32,7 @@ const BlogInput = () => {
         setTitle('');
         setBody('');
         setErrorMessage('');
-        navigate('/blog-view');
+        navigate('/blog');
       })
       .catch(error => {
         setErrorMessage(error.message); // Display the error message received from the server

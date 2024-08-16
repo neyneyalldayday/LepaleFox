@@ -11,29 +11,25 @@ export const letMeIn = (data) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      return response.json(); // Parse the JSON response
+      return response.json(); 
     })
     .then(data => {
       if (data.message === 'You are now logged in!') {
-        return data.letInBtown; // Return the user data
+        return data.letInBtown; 
       } else {
-        throw new Error(data.message); // Rethrow as an error to handle in the caller
+        throw new Error(data.message); 
       }
     })
     .catch(error => {
       console.error('Error:', error);
-      throw error; // Re-throw the error to be caught by the caller
+      throw error; 
     });
   };
-
-
-
-
 
   export const postIt = (data) => {
     return fetch('/api/post/', {
         method: 'POST',
-        credentials: 'include', // Important for including cookies in requests
+        credentials: 'include',
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',
@@ -43,18 +39,38 @@ export const letMeIn = (data) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.json(); // Parse the JSON response
+        return response.json();
       })
       .then(data => {
-        if (data.message === 'blog posted') {
-            console.log(data.newPost)
-          return data.newPost; // Return the user data
-        } else {
-          throw new Error(data.message); // Rethrow as an error to handle in the caller
-        }
+        return data.newMessage
       })
       .catch(error => {
         console.error('Error:', error);
-        throw error; // Re-throw the error to be caught by the caller
+        throw error;
       });
+  }
+
+
+  export const allPosts = (data) => {
+    return fetch('/api/post/checkposts', {
+        method: 'GET',
+        credentials: 'include',
+        body: JSON.stringify(data),
+        headers:{
+            'Content-Type' : 'application/json',
+        },
+    })
+    .then(response => {
+        console.log(response)
+        if(!response.ok) {
+            throw new Error('network not ok');
+        }
+        return response.json();
+    })
+    .then(data => {        
+      if (data){              
+        return data
+      }
+        
+    })
   }

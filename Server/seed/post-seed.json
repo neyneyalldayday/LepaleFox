@@ -1,14 +1,18 @@
 [
-    {
-        "title": "Music Near Me",
-        "body": "A mobile app that will send you notifications whenever a concert is playing in your area."
-      },
-      {
-        "title": "The Ultimate Tech Quiz",
-        "body": "A web app that will give users 10 new technical questions each day and track their progress in things like programming, cybersecurity, database architecture, and more!"
-      },
-      {
-        "title": "Roll 'Em Up",
-        "body": "A game for Windows and macOS where players move a ball through a series of increasingly challenging mazes."
-      }
+  {
+    "title": "Sustainable Style",
+    "body": "An app dedicated to promoting sustainable fashion by connecting users with local vintage clothing stores, sharing eco-friendly styling tips, and educating on the environmental impact of fast fashion."
+  },
+  {
+    "title": "Vintage Revival",
+    "body": "A platform where fashion enthusiasts can swap, sell, and purchase vintage clothing. The app encourages a circular fashion economy while building a community of like-minded individuals who appreciate timeless styles."
+  },
+  {
+    "title": "Community Couture",
+    "body": "An online space where photographers, models, and fashion designers collaborate on sustainable fashion projects. Users can share their work, offer tips, and help each other build portfolios centered around eco-conscious fashion."
+  },
+  {
+    "title": "Green Glamour",
+    "body": "A web app that challenges users to create stylish outfits using only sustainable and vintage pieces. The app features daily challenges, community voting, and a leaderboard to inspire eco-friendly fashion creativity."
+  }
 ]
