@@ -1,5 +1,5 @@
 .footer{
-    width: 100%;    
+    
     color:rgb(210, 181, 181);
     display: flex;
     flex-direction: column;
@@ -19,3 +19,30 @@
     font-size: 2em;
     color: inherit;
 }
+
+.galery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px; /* Adjust the gap between items */
+  }
+  
+  /* Style for individual image containers */
+  .galery > div {
+    overflow: hidden; /* Prevents images from overflowing the container */
+  }
+
+  .image-container{
+    width: 100%; /* Ensures the container takes the full width of its grid cell */
+    overflow: hidden; 
+  }
+
+  .event-image{
+    width: 100%;
+  }
+  
+  /* Responsive adjustments for mobile views */
+  @media (max-width: 768px) {
+    .gallery {
+      grid-template-columns: repeat(2, 1fr); /* Changes to a 2-column layout on smaller screens */
+    }
+  }
