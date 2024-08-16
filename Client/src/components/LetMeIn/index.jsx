@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {letMeIn} from '../../utils/Api'
 
 const LetMeIn = () => {
   const [username, setUsername] = useState('');
@@ -15,18 +16,22 @@ const LetMeIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the username and password to your backend for authentication
-    // For demonstration purposes, let's assume the login was successful
-    // You should replace this with actual authentication logic
-    if (username && password) {
-      alert('Login successful!');
-      setUsername('');
-      setPassword('');
-      setErrorMessage('');
-    } else {
-      setErrorMessage('Username or password is required.');
-    }
-  };
+  
+    // Prepare the data to send to the server
+    const data = { username, password};
+  
+    // Call the letMeIn function with the form data
+    letMeIn(data)
+      .then(() => {
+        alert('Login successful!');
+        setUsername('');
+        setPassword('');
+        setErrorMessage('');
+      })
+      .catch(error => {
+        setErrorMessage(error.message); // Display the error message received from the server
+      });
+  }
 
   return (
     <>
