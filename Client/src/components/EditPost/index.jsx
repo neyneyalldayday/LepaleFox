@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import {onePost, updatePost} from '../../utils/Api'
 
-const EditPost = ({postId}) => {
+const EditPost = ({postId , isEditing}) => {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [errorMessage, setErrorMessage] = useState('');
-    const [isEditing, setIsEditing] = useState(false);
+    // const [isEditing, setIsEditing] = useState(true);
     useEffect(() => {
         const fetchPostDetails = async () => {
             try {

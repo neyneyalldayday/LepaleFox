@@ -48,9 +48,6 @@ const AdminPost = () => {
     }
   };
 
-
-
-
   return (
     <div>
       <div className="image-container">
@@ -60,25 +57,31 @@ const AdminPost = () => {
         </div>
       </div>
       <div className="post-container">
-        {posts.map((post, index) => (
-          <div className="post-card" key={index}>
-             {isEditing && (
-                <div>
-                    <EditPost postId={selectedPost} />                   
-                </div>
-            )|| <div>
-                  <h2>{post.title}</h2>
-                  <p>{post.body}</p>
-                  <div className="buttons">
-                    <button onClick={() => handleEditClick(post.id)}>edit</button>
-                    <button onClick={() => handleDeleteClick(post.id)}>delete</button>
-                  </div>
-                </div>} 
-            
-           
+  {isEditing ? (
+    <>
+      {posts.map((post, index) => (
+        <div className="post-card" key={index}>
+          <div>
+            <EditPost isEditing={isEditing} postId={selectedPost} />
           </div>
-        ))}
-      </div>          
+        </div>
+      ))}
+    </>
+  ) : (
+    <>
+      {posts.map((post, index) => (
+        <div className="post-card" key={index}>
+          <h2>{post.title}</h2>
+          <p>{post.body}</p>
+          <div className="buttons">
+            <button onClick={() => handleEditClick(post.id)}>edit</button>
+            <button onClick={() => handleDeleteClick(post.id)}>delete</button>
+          </div>
+        </div>
+      ))}
+    </>
+  )}
+</div>         
     </div>
   );
 };
