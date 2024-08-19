@@ -74,3 +74,98 @@ export const letMeIn = (data) => {
         
     })
   }
+
+  export const postList = (data) => {
+    return fetch('/api/post/postlist', {
+      method: 'GET',
+      credentials: 'include',
+      body: JSON.stringify(data),
+      headers:{
+          'Content-Type' : 'application/json',
+      },
+    })
+    .then(response => {
+      console.log(response)
+      if(!response.ok) {
+          throw new Error('network not ok');
+      }
+      return response.json();
+  })
+  .then(data => {        
+    if (data){              
+      return data
+    }
+      
+  })
+  }
+
+
+  export const onePost = (id) => {
+    return fetch(`/api/post/${id}`, {
+      method: 'GET',
+      credentials: 'include',     
+      headers:{
+          'Content-Type' : 'application/json',
+      },
+    })
+    .then(response => {
+      console.log(response)
+      if(!response.ok) {
+          throw new Error('network not ok');
+      }
+      return response.json();
+  })
+  .then(data => {        
+    if (data){              
+      return data
+    }
+  })
+      
+  }
+
+
+  export const updatePost = ({id, title, body}) => {
+    return fetch(`api/post/${id}`, {
+      method: 'PUT',
+      credentials: 'include',
+      body: JSON.stringify({title, body}),
+      headers:{
+          'Content-Type' : 'application/json',
+      },
+    })
+    .then(response => {
+      console.log(response)
+      if(!response.ok) {
+          throw new Error('network not ok');
+      }
+      return response.json();
+  })
+  .then(data => {        
+    if (data){  
+      console.log('updated!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')            
+      return data
+    }
+      
+  })
+  }
+
+
+  export const deletePost = (id) => {
+    return fetch(`/api/post/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    })
+    .then(response => {
+      console.log(response)
+      if(!response.ok) {
+          throw new Error('network not ok');
+      }
+      return response.json();
+  })
+  .then(data => {        
+    if (data){              
+      return data
+    }
+      
+  })
+  }

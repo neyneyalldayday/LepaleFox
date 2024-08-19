@@ -69,6 +69,19 @@ router.get('/checkposts', async (req,res)=> {
     }
 });
 
+
+router.get('/postlist', apiGuard,  async (req,res) => {
+  try {
+    const thePostList = await Post.findAll()
+    console.log(thePostList)
+    res.status(200).json(thePostList)
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+    
+  }
+})
+
 router.get('/:id', async (req,res)=> {
     try {
        const focusPost = await Post.findOne({

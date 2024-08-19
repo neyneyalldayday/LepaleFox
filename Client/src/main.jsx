@@ -9,6 +9,8 @@ import Blog from './pages/Blog'
 import Contact from './pages/Contact/index.jsx'
 import LetMeIn from './components/LetMeIn/index.jsx'
 import BlogInput from './components/BlogInput/index.jsx'
+import AdminPost from './components/AdminPost/index.jsx'
+import EditPost from './components/EditPost/index.jsx'
 
 
 
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
       {
         path: '/blog-input',
         element: <BlogInput />
+      },
+      {
+        path: '/admin-post',
+        element: <AdminPost />
+      },
+      {
+        path: '/editpost',
+        element: <EditPost />
       },
      
     ]

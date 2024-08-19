@@ -33,7 +33,7 @@ const BlogInput = () => {
         setTitle('');
         setBody('');
         setErrorMessage('');
-        navigate('/blog');
+        navigate('/admin-post');
       })
       .catch(error => {
         setErrorMessage(error.message); // Display the error message received from the server
