@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "../../pages/Blog/blog.css";
 import image3 from "../../assets/image3.jpg";
-import { postList,  deletePost } from "../../utils/Api";
+import { postList, deletePost } from "../../utils/Api";
 import EditPost from "../EditPost";
 
-
 const AdminPost = () => {
-  const [posts, setPosts] = useState([]); 
+  const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const fetchedPosts = await postList();
-        console.log(fetchedPosts)
+        console.log(fetchedPosts);
         setPosts(fetchedPosts);
       } catch (error) {
         console.error("Failed to fetch posts!:", error);
@@ -28,21 +26,19 @@ const AdminPost = () => {
   const handleEditClick = (postId) => {
     setSelectedPost(postId);
     setIsEditing(true);
-    
   };
 
   const handleDeleteClick = async (postId) => {
     try {
-      console.log(postId)
-     
+      console.log(postId);
+
       const postIndex = posts.findIndex((post) => post.id === postId);
-    if (postIndex !== -1) {
-     
-      const updatedPosts = [...posts]; 
-      updatedPosts.splice(postIndex, 1); 
-      setPosts(updatedPosts);
-      await deletePost(postId); 
-    } 
+      if (postIndex !== -1) {
+        const updatedPosts = [...posts];
+        updatedPosts.splice(postIndex, 1);
+        setPosts(updatedPosts);
+        await deletePost(postId);
+      }
     } catch (error) {
       console.error("Failed to delete post!", error);
     }
@@ -57,31 +53,36 @@ const AdminPost = () => {
         </div>
       </div>
       <div className="post-container">
-  {isEditing ? (
-    <>
-      {posts.map((post, index) => (
-        <div className="post-card" key={index}>
-          <div>
-            <EditPost isEditing={isEditing} postId={selectedPost} />
-          </div>
-        </div>
-      ))}
-    </>
-  ) : (
-    <>
-      {posts.map((post, index) => (
-        <div className="post-card" key={index}>
-          <h2>{post.title}</h2>
-          <p>{post.body}</p>
-          <div className="buttons">
-            <button onClick={() => handleEditClick(post.id)}>edit</button>
-            <button onClick={() => handleDeleteClick(post.id)}>delete</button>
-          </div>
-        </div>
-      ))}
-    </>
-  )}
-</div>         
+        {isEditing ? (
+          <>
+            {posts.map((post, index) => (
+              <div className="post-card" key={index}>
+                    <h2>{post.title}</h2>
+                    <p>{post.body}</p>
+                <div>            
+                  <EditPost postId={selectedPost} />
+                </div>
+                <button onClick={() => setIsEditing(false)}>x</button>
+              </div>
+            ))}
+          </>
+        ) : (
+          <>
+            {posts.map((post, index) => (
+              <div className="post-card" key={index}>
+                <h2>{post.title}</h2>
+                <p>{post.body}</p>
+                <div className="buttons">
+                  <button onClick={() => handleEditClick(post.id)}>edit</button>
+                  <button onClick={() => handleDeleteClick(post.id)}>
+                    delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
+      </div>
     </div>
   );
 };

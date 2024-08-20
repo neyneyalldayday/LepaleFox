@@ -5,8 +5,7 @@ import image2 from '../../assets/image2.jpg'
 
 const Contact = () => {
     const formRef = useRef();
-    useEffect(() => {
-        // Initialize EmailJS with your user ID
+    useEffect(() => {       
         emailjs.init('iJaR9zspjdomC9XL2');
     }, []);
     const sendEmail = (e) => {

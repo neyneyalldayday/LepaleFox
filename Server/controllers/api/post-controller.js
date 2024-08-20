@@ -15,17 +15,13 @@ router.post('/', apiGuard, async (req, res) => {
 
 router.put('/:id', apiGuard, async (req, res) => {
   try {
-    const [affectedRows] = await Post.update(req.body, {
+    const updatedPost = await Post.update(req.body, {
       where: {
         id: req.params.id,
       },
     });
 
-    if (affectedRows > 0) {
-      res.status(200).end();
-    } else {
-      res.status(404).end();
-    }
+   res.status(200).json(updatedPost)
   } catch (err) {
     res.status(500).json(err);
   }

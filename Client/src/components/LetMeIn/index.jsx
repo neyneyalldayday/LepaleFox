@@ -19,10 +19,10 @@ const LetMeIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    // Prepare the data to send to the server
+   
     const data = { username, password};
   
-    // Call the letMeIn function with the form data
+   
     letMeIn(data)
       .then(() => {
         alert('Login successful!');
@@ -32,7 +32,7 @@ const LetMeIn = () => {
         navigate('/blog-input');
       })
       .catch(error => {
-        setErrorMessage(error.message); // Display the error message received from the server
+        setErrorMessage(error.message); 
       });
   }
 

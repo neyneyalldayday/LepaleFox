@@ -23,10 +23,9 @@ const BlogInput = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    // Prepare the data to send to the server
-    const data = { title:title, body: body };
-  
-    // Call the letMeIn function with the form data
+   
+    const data = { title:title, body: body };  
+    
     postIt(data)
       .then(() => {
         alert('post sent!');
@@ -36,8 +35,14 @@ const BlogInput = () => {
         navigate('/admin-post');
       })
       .catch(error => {
-        setErrorMessage(error.message); // Display the error message received from the server
+        setErrorMessage(error.message); 
       });
+  }
+
+
+  const handleToBLogs = (e) => {
+    e.preventDefault();
+    navigate('/admin-post')
   }
   return (
     <>
@@ -56,6 +61,7 @@ const BlogInput = () => {
          onChange={handleInputChange}
         ></textarea>
         <button id="login-btn" type="submit">Submit Post</button>
+        <button  onClick={()=> handleToBLogs}>See Blogs</button>
         {errorMessage && <p>{errorMessage}</p>}
     </form>
     </>

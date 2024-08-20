@@ -1,27 +1,26 @@
-import React, { useState, useEffect } from 'react'
-import {onePost, updatePost} from '../../utils/Api'
+import React, { useState, useEffect } from 'react';
+import { onePost, updatePost } from '../../utils/Api';
 
-const EditPost = ({postId , isEditing}) => {
-    const [title, setTitle] = useState("");
-    const [body, setBody] = useState("");
-    const [errorMessage, setErrorMessage] = useState('');
-    // const [isEditing, setIsEditing] = useState(true);
-    useEffect(() => {
-        const fetchPostDetails = async () => {
-            try {
-                const response = await onePost(postId)
-                
-                console.log(response)
-            } catch (err) {
-               console.log(err) 
-            }
-        };
+const EditPost = ({ postId }) => {
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-        if(postId){
-            fetchPostDetails();
-        }
-    },[postId])
-    
+  useEffect(() => {
+    const fetchPostDetails = async () => {
+      try {
+        const singlePost = await onePost(postId);
+        console.log(singlePost.id)    
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (postId) {
+      fetchPostDetails();
+    }
+  }, [postId]);
+
   const handleInputChange = (e) => {
     if (e.target.id === "title") {
       setTitle(e.target.value);
@@ -30,53 +29,48 @@ const EditPost = ({postId , isEditing}) => {
     }
   };
 
-
-
-  const handleSubmit = async (postId) => {
-    console.log('this work?')
-   
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     const updatedData = {
-        id: postId,
-        title,
-        body,
+      id: postId,
+      title,
+      body,
     };
-    console.log(updatedData)
-      try {
-        
-        await updatePost(updatedData);
-        document.location.reload()
-      } catch (error) {
-        console.error("Failed to update post!", error);
-        setErrorMessage(error.message);
-      }
-    };
+ console.log(updatedData)
+    try {
+      await updatePost(updatedData);
+      document.location.reload(); // Reloads the page
+    } catch (error) {
+      console.error("Failed to update post!", error);
+      setErrorMessage(error.message);
+    }
+  };
+
   return (
     <div>
-         <div>
-          <form className="post-form" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              id="title"
-              placeholder="title"
-              value={title}
-              onChange={handleInputChange}
-            />
-            <textarea
-              id="body"
-              placeholder="body of post"
-              value={body}
-              onChange={handleInputChange}
-            ></textarea>           
-            {errorMessage && <p>{errorMessage}</p>}
-          </form>
-          <button onClick={() => setIsEditing(false)}>Cancel</button>
-          <button type="submit" onClick={() => handleSubmit(postId)}>
-            Save Changes
-          </button>
-        </div>
+      <div>
+        <form className="post-form" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            id="title"
+            placeholder="title"
+            value={title}
+            onChange={handleInputChange}
+          />
+          <textarea
+            id="body"
+            placeholder="body of post"
+            value={body}
+            onChange={handleInputChange}
+          />
+          {errorMessage && <p>{errorMessage}</p>}
+          <button type="submit" >Save Changes</button>
+        </form>
+       
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default EditPost
+export default EditPost;
