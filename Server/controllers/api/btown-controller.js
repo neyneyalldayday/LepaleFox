@@ -11,7 +11,7 @@ try {
         req.session.username = createBtown.username;
         req.session.logged_in = true;
   
-        res.status(200).json(createBtown);
+        res.status(200).json({createBtown, message:"You are now logged in!"});
       });
 } catch (err) {
     console.error(err);
@@ -77,6 +77,15 @@ router.post('/letmeout', (req, res) => {
     } catch (err) {
         res.status(500).json(err)
         
+    }
+  });
+
+
+  router.get("/oneofme", async (req,res) => {
+    if (!req.session.logged_in) {
+      res.status(403).json({ msg: 'you must login to perform this action' });      
+    } else {
+      res.json(true);
     }
   })
 
