@@ -82,6 +82,7 @@ router.post('/letmeout', (req, res) => {
 
 
   router.get("/oneofme", async (req,res) => {
+    console.log(req.session)
     if (!req.session.logged_in) {
       res.status(403).json({ msg: 'you must login to perform this action' });      
     } else {

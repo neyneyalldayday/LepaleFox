@@ -224,8 +224,8 @@ export const createMe = async (data) => {
     try {
       const response = await fetch(`/api/btown/oneofme`); 
       const user = await response.json();
-      console.log(user)
-      return !!user;
+      console.log(user,"=====================================")
+      return user;
     } catch (error) {
       console.error('Authentication check failed:', error);
       return false;
