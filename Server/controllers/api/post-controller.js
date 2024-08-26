@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Post, Comment} = require('../../models/');
+const { Post, Comment, User} = require('../../models/');
 const { apiGuard } = require('../../utils/authGuard');
 
 router.post('/', apiGuard, async (req, res) => {
@@ -82,8 +82,8 @@ router.get('/postlist', apiGuard,  async (req,res) => {
 
 router.get('/:id', async (req,res)=> {
     try {
-       const focusPost = await Post.findOne({
-        where: {id: req.params.id}
+       const focusPost = await Post.findByPk(req.params.id,{      
+        include: [{model: Comment, include:[User] }]
        });
        res.status(200).json(focusPost);
      

@@ -1,5 +1,5 @@
 const router =  require('express').Router();
-const { Comment } = require('../../models');
+const { Comment, User } = require('../../models');
 const { apiGuard } = require('../../utils/authGuard')
 
 router.post('/', apiGuard, async (req, res) => {
@@ -16,6 +16,20 @@ router.post('/', apiGuard, async (req, res) => {
       res.status(500).json(err);
     }
   });
+
+
+  router.get('/', async (req, res) => {
+    try {
+      const allComments = await Comment.findAll({
+        include: [{model: User}]
+      })
+      res.status(200).json(allComments)
+    } catch (err) {
+      console.error(err);
+      res.status(500).json(err)
+      
+    }
+  })
 
 
 
