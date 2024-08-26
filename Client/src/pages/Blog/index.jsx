@@ -59,11 +59,11 @@ const Blog = () => {
 
 
   const handleComment = async (event) => {
-    console.log(...commentForm)
-       setCommentForm({
-        ...commentForm,
-       comment: event.target.value})
-     
+    
+       setCommentForm(prevForm => ({
+        ...prevForm,
+        selectedPost,
+       body: event.target.value}))     
   }
 
   return (
@@ -75,11 +75,11 @@ const Blog = () => {
         </div>
       </div>
       {isModalOpen ? (
-        <CommentModal handleComment={handleComment} commentForm={commentForm} onClose={() => setIsModalOpen(false)} />
+        <CommentModal handleComment={handleComment}  commentForm={commentForm} onClose={() => setIsModalOpen(false)} />
       ) : (
         <PostList
          posts={posts}  
-         onSelect={(post) => setSelectedPost(post)}  
+         onSelect={({ post, postId }) => setSelectedPost({ post, postId })}  
          setIsModalOpen={setIsModalOpen} 
          setIsSignUpModalOpen={setIsSignUpModalOpen} />
       )}

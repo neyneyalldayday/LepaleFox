@@ -1,19 +1,21 @@
 
 import {comment} from '../../utils/Api'
 const CommentModal = ({ onClose, handleComment, setIsModalOpen, commentForm }) => {
-  
+    const commentString = commentForm.comment
 
     const handleSubmit = async (event) => {
-      event.preventDefault();  
-      console.log("comment");
-      try {
+      event.preventDefault();      
+      try {  
+        console.log(commentForm)    
         const commentResult = await comment(commentForm)
         console.log(commentResult, "hererererer")
-        setIsModalOpen(false)
+        // setIsModalOpen(false)
       } catch (err) {
         console.log(err)      
       }       
     };
+
+    
   
     return (
     <div className="modal">
@@ -26,7 +28,7 @@ const CommentModal = ({ onClose, handleComment, setIsModalOpen, commentForm }) =
            name="comment" 
            id="comment"
            placeholder='comment'
-           value={commentForm}
+           value={commentString}
            onChange={handleComment}
            ></textarea>
         </div>

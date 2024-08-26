@@ -177,11 +177,18 @@ export const createMe = async (data) => {
 
 
   export const comment = async (data) => {
+    console.log(data.body)
+    console.log(data.selectedPost.postId)
     try {
       const response = await fetch('/api/comment', {
         method: 'POST',
         credentials: 'include',
-        body: JSON.stringify(data),
+        body: JSON.stringify(
+          {
+           body: data.body,
+           postId: data.selectedPost.postId
+          }
+        ),
         headers: {
           'Content-Type': 'application/json',
         }
@@ -190,7 +197,8 @@ export const createMe = async (data) => {
         throw new Error('Network response was not ok');
       }
       const data_1 = await response.json();
-      return data_1.newComment;
+      console.log(data_1)
+      return data_1;
     } catch (err) {
       console.error('Error:', err);
       throw err;

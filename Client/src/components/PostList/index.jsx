@@ -8,18 +8,26 @@ const PostList = ({ posts ,onSelect, setIsModalOpen,  setIsSignUpModalOpen }) =>
         
         setIsSignUpModalOpen(true);
       } else {
-        onSelect(post);
+        onSelect({post, postId: post.id});
         setIsModalOpen(true);
       }
     };
   
     return (
     <div className='post-container'>
-      {posts.map((post, index) => (
-        <div className='post-card' key={index} onClick={() => handleCardClick(post)}>
+      {posts.map((post) => (
+        <div className='post-card' key={post.id} onClick={() => handleCardClick(post)}>
           <h2>{post.title}</h2>
           <p>{post.body}</p>
           <p>{post.createdAtFormatted}</p>
+          <ul className='comments-list'>
+           {post.comments.map((comment) => (
+            <li  key={comment.id}>
+              <p>{comment.body}</p>
+              <small>{new Date(comment.createdAt).toLocaleDateString()}</small>
+            </li>
+           ))}
+          </ul>
         </div>
       ))}
     </div>

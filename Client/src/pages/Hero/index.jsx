@@ -1,4 +1,4 @@
-import image from '../../assets/image.jpg'
+import image from '../../assets/idk-what-i-did.png'
 import './hero.css'
 const Hero = () => {
   return (
