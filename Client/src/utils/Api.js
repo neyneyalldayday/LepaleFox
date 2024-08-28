@@ -1,3 +1,4 @@
+// login end point
 export const letMeIn = async (data) => {
   try {
       const response = await fetch('/api/btown/letmein', {
@@ -25,6 +26,7 @@ export const letMeIn = async (data) => {
   }
 };
 
+// signup end point
 export const createMe = async (data) => {
   console.log(data)
   try {
@@ -53,6 +55,7 @@ export const createMe = async (data) => {
   }
 }
 
+// route to post a blog
   export const postIt = async (data) => {
     try {
       const response = await fetch('/api/post/', {
@@ -74,7 +77,7 @@ export const createMe = async (data) => {
     }
   };
 
-
+// get all posts
   export const allPosts = async (data) => {
     const response = await fetch('/api/post/checkposts', {
       method: 'GET',
@@ -93,6 +96,7 @@ export const createMe = async (data) => {
     }
   };
 
+  // secured list of posts
   export const postList = async (data) => {
     const response = await fetch('/api/post/postlist', {
       method: 'GET',
@@ -111,7 +115,7 @@ export const createMe = async (data) => {
     }
   };
 
-
+// get one post 
   export const onePost = async (id) => {
     const response = await fetch(`/api/post/${id}`, {
       method: 'GET',
@@ -125,6 +129,7 @@ export const createMe = async (data) => {
     }
     const data = await response.json();
     if (data) {
+      console.log(data)
       return data;
     }
       

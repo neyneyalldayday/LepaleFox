@@ -7,6 +7,7 @@ import SignUpModal from '../../components/SignUpModal';
 import PostList from '../../components/PostList';
 
 const Blog = () => {
+  
   const [posts, setPosts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);

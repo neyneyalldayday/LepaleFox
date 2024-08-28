@@ -10,8 +10,6 @@ const Contact = () => {
     }, []);
     const sendEmail = (e) => {
       e.preventDefault();
-        
-   
 
       emailjs.sendForm('service_yd9p1np', 'template_pbzaykh', formRef.current)
         .then((result) => {
@@ -20,7 +18,7 @@ const Contact = () => {
         }, (error) => {
             console.log(error.text);
         });
-    }
+    };
 
   return (
     <>

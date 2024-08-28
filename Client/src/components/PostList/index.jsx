@@ -1,5 +1,22 @@
+import React, {useEffect} from 'react'
 import {isUserAuthenticated} from '../../utils/Api'
+import { onePost } from '../../utils/Api';
 const PostList = ({ posts ,onSelect, setIsModalOpen,  setIsSignUpModalOpen }) => {
+
+  useEffect(() => {
+    const fetchComments = async (post) => {
+      try {
+        const comments = await onePost()
+        console.log(comments)
+      } catch (err) {
+        console.log(err)
+        return [];
+      }
+    }
+
+    fetchComments(post)
+  }, [])
+
 
     const handleCardClick = async (post) => {
       const isAuthenticated = await isUserAuthenticated();
