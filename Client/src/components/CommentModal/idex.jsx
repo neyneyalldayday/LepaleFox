@@ -1,15 +1,18 @@
 
 import {comment} from '../../utils/Api'
-const CommentModal = ({ onClose, handleComment, setIsModalOpen, commentForm }) => {
-    const commentString = commentForm.comment
+const CommentModal = ({ onClose, handleComment, setIsModalOpen, commentForm, post }) => {
+    const commentString = commentForm.body
 
     const handleSubmit = async (event) => {
-      event.preventDefault();      
+      event.preventDefault();   
       try {  
-        console.log(commentForm)    
-        const commentResult = await comment(commentForm)
+        const commentData = {
+          ...commentForm,
+          postId: post.post.id
+        }
+        const commentResult = await comment(commentData)
         console.log(commentResult, "hererererer")
-        // setIsModalOpen(false)
+        setIsModalOpen(false)
       } catch (err) {
         console.log(err)      
       }       
@@ -29,7 +32,7 @@ const CommentModal = ({ onClose, handleComment, setIsModalOpen, commentForm }) =
            id="comment"
            placeholder='comment'
            value={commentString}
-           onChange={handleComment}
+           onChange={(e) => handleComment(e)}
            ></textarea>
         </div>
           <button type="submit">Submit</button>

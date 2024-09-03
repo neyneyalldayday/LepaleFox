@@ -2,11 +2,12 @@ const router =  require('express').Router();
 const { Comment, User } = require('../../models');
 const { apiGuard } = require('../../utils/authGuard')
 
-router.post('/', apiGuard, async (req, res) => {
+router.post('/:id', apiGuard, async (req, res) => {
     try {
       
       const newComment = await Comment.create({
         ...req.body,
+        postId: req.params.id,
         userId: req.session.user_id,
       });
       console.log(newComment)

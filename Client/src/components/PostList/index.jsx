@@ -4,7 +4,7 @@ import { onePost } from '../../utils/Api';
 const PostList = ({ posts ,onSelect, setIsModalOpen,  setIsSignUpModalOpen }) => {
 
   useEffect(() => {
-    const fetchComments = async (post) => {
+    const fetchComments = async () => {
       try {
         const comments = await onePost()
         console.log(comments)
@@ -14,18 +14,19 @@ const PostList = ({ posts ,onSelect, setIsModalOpen,  setIsSignUpModalOpen }) =>
       }
     }
 
-    fetchComments(post)
+  //  fetchComments()
   }, [])
 
 
     const handleCardClick = async (post) => {
       const isAuthenticated = await isUserAuthenticated();
       console.log(isAuthenticated, "*********************************")
-      if (isAuthenticated.msg === 'you must login to perform this action') {
-        
+      if (isAuthenticated.msg === 'you must login to perform this action') {       
         setIsSignUpModalOpen(true);
       } else {
-        onSelect({post, postId: post.id});
+        console.log(post, "motherFUCKER")
+        onSelect({post, postId: post.id });
+        
         setIsModalOpen(true);
       }
     };

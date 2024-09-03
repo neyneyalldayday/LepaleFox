@@ -182,16 +182,16 @@ export const createMe = async (data) => {
 
 
   export const comment = async (data) => {
-    console.log(data.body)
-    console.log(data.selectedPost.postId)
+    console.log(data)
+    const postId = data.postId
+    // console.log(data.selectedPost.postId)
     try {
-      const response = await fetch('/api/comment', {
+      const response = await fetch(`/api/comment/${postId}`, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(
           {
-           body: data.body,
-           postId: data.selectedPost.postId
+           body: data.body,           
           }
         ),
         headers: {
