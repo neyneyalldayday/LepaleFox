@@ -49,8 +49,11 @@ const Blog = () => {
       await createMe({username, password});
       
       setIsSignUpModalOpen(false);
-      setIsModalOpen(true)
-      
+
+      if(selectedPost){
+        setIsModalOpen(true)
+      }
+
       setUsername("");
       setPassword("");
     } catch (error) {
@@ -67,6 +70,16 @@ const Blog = () => {
     }))     
   }
 
+  const updatePostComments = (postId, newComment) => {
+    setPosts(prevPosts => prevPosts.map(post => {
+      return post.id === postId
+      ? { ...post, comments : [...post.comments, newComment] }
+      : post
+    }
+  )
+)
+  }
+
   return (
     <>
       <div className='image-container'>
@@ -75,21 +88,23 @@ const Blog = () => {
           <h1>Blog</h1>          
         </div>
       </div>
-      {isModalOpen ? (
-        <>
-           <PostList
+      <PostList
            posts={posts}  
            onSelect={({ post, postId }) => setSelectedPost({ post, postId })}  
            setIsModalOpen={setIsModalOpen} 
-           setIsSignUpModalOpen={setIsSignUpModalOpen} />
-           <CommentModal handleComment={handleComment}  commentForm={commentForm} onClose={() => setIsModalOpen(false)} post={selectedPost} setIsModalOpen={setIsModalOpen} />
-        </>
-      ) : (
-        <PostList
-         posts={posts}  
-         onSelect={({ post, postId }) => setSelectedPost({ post, postId })}  
-         setIsModalOpen={setIsModalOpen} 
-         setIsSignUpModalOpen={setIsSignUpModalOpen} />
+           setIsSignUpModalOpen={setIsSignUpModalOpen} 
+           />
+      {isModalOpen && selectedPost && (
+                
+           <CommentModal 
+           handleComment={handleComment}
+             commentForm={commentForm} 
+             onClose={() => setIsModalOpen(false)} 
+             post={selectedPost} 
+             setIsModalOpen={setIsModalOpen} 
+             updatePostComments={updatePostComments}
+             />        
+      
       )}
       {isSignUpModalOpen && (
             <SignUpModal

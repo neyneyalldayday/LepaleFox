@@ -21,13 +21,13 @@ const PostList = ({ posts ,onSelect, setIsModalOpen,  setIsSignUpModalOpen }) =>
     const handleCardClick = async (post) => {
       const isAuthenticated = await isUserAuthenticated();
       console.log(isAuthenticated, "*********************************")
-      if (isAuthenticated.msg === 'you must login to perform this action') {       
+      if (isAuthenticated.msg === 'you must login to perform this action') { 
+        onSelect({post, postId: post.id });      
         setIsSignUpModalOpen(true);
       } else {
         console.log(post, "motherFUCKER")
-        onSelect({post, postId: post.id });
-        
-        setIsModalOpen(true);
+        onSelect({post, postId: post.id }); 
+        setIsModalOpen(true)     
       }
     };
   
