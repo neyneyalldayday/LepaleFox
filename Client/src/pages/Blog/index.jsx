@@ -19,11 +19,12 @@ const Blog = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const fetchedPosts = await allPosts();
+        const fetchedPosts = await allPosts();    
         const formattedPosts = fetchedPosts.map(fetchedDate => ({
           ...fetchedDate,
           createdAtFormatted: formatDate(fetchedDate.createdAt),
         }));
+        console.log(formattedPosts)
         setPosts(formattedPosts);
       } catch (error) {
         console.error('Failed to fetch posts!', error);

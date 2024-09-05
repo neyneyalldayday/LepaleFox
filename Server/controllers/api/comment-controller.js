@@ -22,7 +22,7 @@ router.post('/:id', apiGuard, async (req, res) => {
   router.get('/', async (req, res) => {
     try {
       const allComments = await Comment.findAll({
-        include: [{model: User}]
+        include: [{model: User, attributes: ["username"]}]
       })
       res.status(200).json(allComments)
     } catch (err) {

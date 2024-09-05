@@ -83,3 +83,20 @@
     text-decoration: underline;
     color:rgb(101, 65, 185);
   }
+
+  .comments-section {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #b993b6;
+    border-radius: 5px;
+  }
+  
+  .comment {
+    margin-bottom: 5px;
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .comment:last-child {
+    border-bottom: none;
+  }

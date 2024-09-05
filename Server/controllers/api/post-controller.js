@@ -53,18 +53,20 @@ router.delete('/:id', apiGuard, async (req, res) => {
 
 
 router.get('/checkposts', async (req,res)=> {
-    try {
-        console.log('User ID:', req.session.user_id);
-       const allmyPosts = await Post.findAll({
-        include: [Comment]
-       });
-       console.log('Found Posts:', allmyPosts);
-       res.status(200).json(allmyPosts); 
-    } catch (err) {
-        console.error(err);
-        res.status(500).json(err)
-        
-    }
+  try {
+    console.log('User ID:', req.session.user_id);
+    const allmyPosts = await Post.findAll({
+      include: [{
+        model: Comment,
+        include: [{model: User, attributes: ["username"]}]
+      }]
+    });
+    console.log('Found Posts:', allmyPosts);
+    res.status(200).json(allmyPosts); 
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err)
+  }
 });
 
 
