@@ -37,7 +37,7 @@ const EditPost = ({ postId }) => {
       title,
       body,
     };
- console.log(updatedData)
+       console.log(updatedData)
     try {
       await updatePost(updatedData);
       document.location.reload(); // Reloads the page

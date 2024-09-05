@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { allPosts,  createMe  } from '../../utils/Api';
+import { allPosts,  createMe, isUserAuthenticated, onePost  } from '../../utils/Api';
 import './blog.css';
 import image3 from '../../assets/image3.jpg';
 import CommentModal from '../../components/CommentModal/idex';
@@ -14,26 +14,42 @@ const Blog = () => {
   const [commentForm, setCommentForm] = useState({});  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const fetchedPosts = await allPosts();    
-        const formattedPosts = fetchedPosts.map(fetchedDate => ({
-          ...fetchedDate,
-          createdAtFormatted: formatDate(fetchedDate.createdAt),
-        }));
-        console.log(formattedPosts)
-        setPosts(formattedPosts);
-      } catch (error) {
-        console.error('Failed to fetch posts!', error);
-      }
-    };
-
     fetchPosts();
+    checkAuthentication();
   }, []);
 
+  const fetchPosts = async () => {
+    try {
+      const fetchedPosts = await allPosts();    
+      const formattedPosts = fetchedPosts.map(fetchedDate => ({
+        ...fetchedDate,
+        createdAtFormatted: formatDate(fetchedDate.createdAt),
+      }));
+      console.log(formattedPosts)
+      setPosts(formattedPosts);
+    } catch (error) {
+      console.error('Failed to fetch posts!', error);
+    }
+  };
+
+  const checkAuthentication = async () => {
+    try {
+      const authStatus = await isUserAuthenticated();
+      const isAuth = authStatus.msg !== 'you must login to perform this action';
+      setIsAuthenticated(isAuth);
+      if (isAuth) {
+        setCurrentUser(authStatus.user);
+      }
+    } catch (error) {
+      console.error('Failed to check authentication status', error);
+      setIsAuthenticated(false);
+    }
+  };
 
   const formatDate = (dateString) => {
     const yearPosition = dateString.indexOf("2024");
@@ -47,9 +63,11 @@ const Blog = () => {
     try {
       console.log(username, password)
     
-      await createMe({username, password});
+      const response = await createMe({username, password});
       
       setIsSignUpModalOpen(false);
+      setIsAuthenticated(true);
+      setCurrentUser(response.user.username)
 
       if(selectedPost){
         setIsModalOpen(true)
@@ -63,23 +81,33 @@ const Blog = () => {
   };
 
 
-  const handleComment = async (event) => {
-  
+  const handleComment = async (event) => {  
        setCommentForm(prevForm => ({
         ...prevForm,       
        body: event.target.value,    
     }))     
   }
 
-  const updatePostComments = (postId, newComment) => {
-    setPosts(prevPosts => prevPosts.map(post => {
-      return post.id === postId
-      ? { ...post, comments : [...post.comments, newComment] }
-      : post
+  const updatePostComments = async (postId, newComment) => {
+    try {
+      const updatedPost = await onePost(postId);
+      setPosts(prevPosts => prevPosts.map(post => 
+        post.id === postId ? { ...post, comments: updatedPost.comments } : post
+      ));
+    } catch (error) {
+      console.error('Failed to fetch updated post', error);
     }
-  )
-)
-  }
+  };
+
+  const handlePostSelection = async ({ post, postId }) => {
+    setSelectedPost({ post, postId });
+    
+    if (isAuthenticated) {
+      setIsModalOpen(true);
+    } else {
+      setIsSignUpModalOpen(true);
+    }
+  };
 
   return (
     <>
@@ -91,12 +119,10 @@ const Blog = () => {
       </div>
       <PostList
            posts={posts}  
-           onSelect={({ post, postId }) => setSelectedPost({ post, postId })}  
-           setIsModalOpen={setIsModalOpen} 
-           setIsSignUpModalOpen={setIsSignUpModalOpen} 
+           onSelect={handlePostSelection}
+           isAuthenticated={isAuthenticated}
            />
-      {isModalOpen && selectedPost && (
-                
+      {isModalOpen && selectedPost && (                
            <CommentModal 
            handleComment={handleComment}
              commentForm={commentForm} 
@@ -104,6 +130,7 @@ const Blog = () => {
              post={selectedPost} 
              setIsModalOpen={setIsModalOpen} 
              updatePostComments={updatePostComments}
+             currentUser={currentUser}
              />        
       
       )}

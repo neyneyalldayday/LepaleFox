@@ -1,19 +1,8 @@
 import React, { useState } from 'react';
-import { isUserAuthenticated} from '../../utils/Api';
 
-const PostList = ({ posts, onSelect, setIsModalOpen, setIsSignUpModalOpen }) => {
+
+const PostList = ({ posts, onSelect, isAuthenticated }) => {
   const [expandedComments, setExpandedComments] = useState({});
-
-  const handleCardClick = async (post) => {
-    const isAuthenticated = await isUserAuthenticated();
-    if (isAuthenticated.msg === 'you must login to perform this action') {
-      onSelect({ post, postId: post.id });
-      setIsSignUpModalOpen(true);
-    } else {
-      onSelect({ post, postId: post.id });
-      setIsModalOpen(true);
-    }
-  };
 
   const toggleComments = (postId) => {
     setExpandedComments(prev => ({
@@ -39,13 +28,15 @@ const PostList = ({ posts, onSelect, setIsModalOpen, setIsSignUpModalOpen }) => 
             <div className='comments-section'>
               {post.comments.map((comment, index) => (
                 <div key={index} className='comment'>
-                  <p>{comment.user.username}: </p>
+                  <p>{comment.user?.username  || 'Unknown User'}: </p>
                   <p>{comment.body}</p>
                 </div>
               ))}
             </div>
           )}
-          <button onClick={() => handleCardClick(post)}>Add Comment</button>
+          <button onClick={() => onSelect({ post, postId: post.id })}>
+            {isAuthenticated ? 'Add Comment' : 'Sign Up to Comment'}
+          </button>
         </div>
       ))}
     </div>

@@ -17,12 +17,10 @@ const LetMeIn = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-  
-   
+    e.preventDefault();  
+    
     const data = { username, password};
-  
-   
+
     letMeIn(data)
       .then(() => {
         alert('Login successful!');
