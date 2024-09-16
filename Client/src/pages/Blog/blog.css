@@ -100,3 +100,14 @@
   .comment:last-child {
     border-bottom: none;
   }
+
+  .admin-comment-notification{
+    display: flex;
+    justify-content: center;
+  }
+
+
+  .admin-comment-notification:hover{
+    cursor: pointer;
+    text-decoration: underline;
+  }

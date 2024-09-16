@@ -211,6 +211,26 @@ export const createMe = async (data) => {
   };
 
 
+  export const viewComments = async (data) => {
+    try {
+      const response = await fetch('/api/comment', {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      if (!response.ok) {
+        console.log('something went wrong')
+      }
+      const comments = await response.json()
+      return comments
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+
   export const replyToComment = async (data) => {
     try {
       const response = await fetch('/api/reply', {
