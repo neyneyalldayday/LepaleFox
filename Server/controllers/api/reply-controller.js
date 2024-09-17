@@ -1,21 +1,17 @@
 const router = require('express').Router();
-const {Comment, Reply} = require('../../models');
+const { Reply } = require('../../models');
 const { apiGuard } = require('../../utils/authGuard');
 
 
 
-router.post('/', apiGuard, async (req,res) => {
+router.post('/:id', apiGuard, async (req,res) => {
     try {
-        const { commentId, replyBody } = req.body;
-
-        if (!commentId || !replyBody){
-            return res.status(400).json({error: 'need the comment id and the content for the reply'})
-        }
-
-        const newReply = await Reply.create({
-            commentId,
-            userId: req.session.user_id,
-            body: replyBody,
+      
+        
+        const newReply = await Reply.create({  
+         ...req.body,
+         commentId: req.params.id, 
+         userId: req.session.user_id          
         });
         res.status(200).json(newReply);
     } catch (err) {

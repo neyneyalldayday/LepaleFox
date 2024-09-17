@@ -28,8 +28,10 @@ Comment.hasMany(Reply, {
     onDelete: 'CASCADE',
 });
 
-Reply.belongsTo(Comment, {
-    foreignKey: 'commentId',
+
+
+Reply.belongsTo(User, {
+    foreignKey: 'userId',
     onDelete: 'CASCADE',
 })
 

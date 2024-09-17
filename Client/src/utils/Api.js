@@ -232,6 +232,7 @@ export const createMe = async (data) => {
 
 
   export const replyToComment = async (data) => {
+    console.log('api data', data)
     try {
       const response = await fetch('/api/reply', {
         method: 'POST',

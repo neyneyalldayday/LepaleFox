@@ -5,7 +5,7 @@
 }
 
 #hero{
-    width: 100%;
+    width: 35rem;
     
 }
 .hero-content{
@@ -18,7 +18,7 @@
     0 0 4px rgba(0, 0, 0, 0.6), 
     0 0 6px rgba(255, 255, 255, 0.4), 
     0 0 2px rgba(255, 255, 255, 0.2); 
-    color: rgb(93, 90, 103);
+    color: rgb(150, 148, 158);
 }
 
 
