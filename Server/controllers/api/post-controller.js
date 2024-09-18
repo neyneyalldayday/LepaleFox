@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Post, Comment, User} = require('../../models/');
+const { Post, Comment, User, Reply} = require('../../models/');
 const { apiGuard } = require('../../utils/authGuard');
 
 router.post('/', apiGuard, async (req, res) => {
@@ -53,12 +53,12 @@ router.delete('/:id', apiGuard, async (req, res) => {
 
 
 router.get('/checkposts', async (req,res)=> {
-  try {
-    console.log('User ID:', req.session.user_id);
+  try {    
     const allmyPosts = await Post.findAll({
       include: [{
         model: Comment,
-        include: [{model: User, attributes: ["username"]}]
+        include: [{model: User, attributes: ["username"]}],
+        include : [{model: Reply, attributes: ["body"]}]
       }]
     });
     console.log('Found Posts:', allmyPosts);
