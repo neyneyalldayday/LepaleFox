@@ -9,8 +9,10 @@ const BlogInput = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
+  const [selectedcommentId , setSelectedCommentId] = useState(null);
   const [showInput, setShowInput] = useState(false);
-  const [ reply, setReply ] = useState('')
+  const [ reply, setReply ] = useState('');
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,29 +62,37 @@ const BlogInput = () => {
     setShowComments(!showComments);
   };
 
-  const toggleReply = () => {
-    setShowInput(!showInput)
+  const toggleReply = (commentId) => {
+    setSelectedCommentId(commentId);
+    setShowInput(!showInput);
+    setReply('');
   }
 
 
-  const handleReply = (e) => {
-  e.preventDefault()
-  if (e.target.id === "body"){
-    setReply(e.target.value);
-    console.log(reply)
-  }
-  console.log("did a reply thing")
-  }
+  // const handleReply = (e) => {
+  // e.preventDefault()
+  // if (e.target.id === "body"){
+  //   setReply(e.target.value);
+  //   console.log(reply)
+  // }
+  // console.log("did a reply thing")
+  // }
 
   const handleReplySubmit  = async (e) => {
     e.preventDefault();
+    if(!selectedcommentId){
+      console.log('No comment selected');
+      return;
+    }
    try {
-    const data = reply;
+    const data = { body: reply, commentId: selectedcommentId };
     const replySubmission = await replyToComment(data);
     console.log(replySubmission)
+    setShowInput(false);
+    setSelectedCommentId(null);
+    handleComments();
    } catch (err) {
-    console.log(err)
-    
+    console.log(err);    
    }
 
   }
@@ -122,10 +132,10 @@ const BlogInput = () => {
               <p>
                 <strong>{comment.user.username}</strong>: {comment.body}
               </p>
-              <button onClick={toggleReply}>Reply</button>
-              {showInput && (
+              <button onClick={() => toggleReply(comment.id)}>Reply</button>
+              {showInput && selectedcommentId === comment.id && (
                 <section>
-                  <input type="text" value={reply}  onChange={handleReply} id="body"/>
+                  <input type="text" value={reply}  onChange={(e) => setReply(e.target.value)} id="body"/>
                   <button onClick={handleReplySubmit}>submit</button>
                 </section>
               )}

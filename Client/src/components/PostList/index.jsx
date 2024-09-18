@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 
 const PostList = ({ posts, onSelect, isAuthenticated }) => {
+  console.log("postsssss"  , posts)
   const [expandedComments, setExpandedComments] = useState({});
 
   const toggleComments = (postId) => {
@@ -30,6 +31,15 @@ const PostList = ({ posts, onSelect, isAuthenticated }) => {
                 <div key={index} className='comment'>
                   <p>{comment.user?.username  || 'Unknown User'}: </p>
                   <p>{comment.body}</p>
+                  <section className='reply-container'>
+                  {comment.replies?.map((reply, index) => (
+                    <section key={index} className='replysection'>
+                    <p>From LepaleFox: {reply.body}</p>
+                  </section>
+                  ))}
+                  </section>
+                  
+                  
                 </div>
               ))}
             </div>
