@@ -103,8 +103,12 @@
 
   .admin-comment-notification{
     display: flex;
+    flex-direction: column;
+    padding: 3rem;
     justify-content: center;
   }
+
+
 
 
   .admin-comment-notification:hover{
@@ -123,4 +127,18 @@
     display: flex;
     flex-direction: column;
     gap: .5rem;
+  }
+
+  .img-wrapper{
+    max-width: 30rem;
+    min-width: 15rem;
+  }
+
+  .img-wrapper img{
+    width: 100%;
+    border-radius: 16px;
+  }
+
+  .photo-component{
+
   }

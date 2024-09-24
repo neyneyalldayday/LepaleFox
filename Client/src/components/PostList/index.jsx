@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import placeholder from '../../assets/idk-what-i-did.png'
 
 const PostList = ({ posts, onSelect, isAuthenticated }) => {
   console.log("postsssss"  , posts)
@@ -16,6 +16,22 @@ const PostList = ({ posts, onSelect, isAuthenticated }) => {
     <div className='post-container'>
       {posts.map((post) => (
         <div className='post-card' key={post.id}>
+          {post.photos?.map((photo)=> (
+            <section className='photo-container' key={photo.id}>
+              <p>{photo.description}</p>
+              <div className='img-wrapper'>
+                 <img 
+                 src={`/api/upload/photo/${photo.id}`} 
+                 alt={photo.title} 
+                 onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = placeholder; 
+                }}
+                 />
+              </div>             
+            </section>
+          ))}
+          
           <h2>{post.title}</h2>
           <p>{post.body}</p>
           <p>Date {post.createdAtFormatted}</p>

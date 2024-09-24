@@ -30,7 +30,7 @@ const Blog = () => {
         ...fetchedDate,
         createdAtFormatted: formatDate(fetchedDate.createdAt),
       }));
-      console.log(formattedPosts)
+      console.log("all the posts from the allPost function",formattedPosts)
       setPosts(formattedPosts);
     } catch (error) {
       console.error('Failed to fetch posts!', error);

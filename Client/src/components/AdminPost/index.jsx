@@ -1,27 +1,39 @@
 import React, { useState, useEffect } from "react";
 import "../../pages/Blog/blog.css";
 import image3 from "../../assets/image3.jpg";
-import { postList, deletePost } from "../../utils/Api";
+import { allPosts, deletePost, getPhoto } from "../../utils/Api";
 import EditPost from "../EditPost";
+import placeholder from '../../assets/idk-what-i-did.png'
 
 const AdminPost = () => {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [photos, setPhotos ] = useState([])
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const fetchedPosts = await postList();
-        console.log(fetchedPosts);
-        setPosts(fetchedPosts);
-      } catch (error) {
-        console.error("Failed to fetch posts!:", error);
-      }
-    };
-
-    fetchPosts();
+        fetchPosts();
+        // fetchPhotos()
   }, []);
+
+  // const fetchPhotos = async () => {
+  //   try {
+  //     const prepPhotos = await getPhoto();
+  //     console.log(prepPhotos)
+  //     setPhotos(prepPhotos)
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
+  const fetchPosts = async () => {
+    try {
+      const fetchedPosts = await allPosts();
+      console.log(fetchedPosts);
+      setPosts(fetchedPosts);
+    } catch (error) {
+      console.error("Failed to fetch posts!:", error);
+    }
+  };
 
   const handleEditClick = (postId) => {
     setSelectedPost(postId);
@@ -57,8 +69,23 @@ const AdminPost = () => {
           <>
             {posts.map((post, index) => (
               <div className="post-card" key={index}>
-                    <h2>{post.title}</h2>
-                    <p>{post.body}</p>
+                {post.photos?.map((photo) => (
+                  <section key={photo.id}>
+                    <img 
+                    src={`/api/upload/photo/${id}`} 
+                    alt={photo.title} 
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = placeholder; 
+                    }}
+                    />
+                  </section>
+                ))}
+                <section className="post-content">
+                  <h2>{post.title}</h2>
+                  <p>{post.body}</p>
+                </section>
+                   
                 <div>            
                   <EditPost postId={selectedPost} />
                 </div>
@@ -70,6 +97,18 @@ const AdminPost = () => {
           <>
             {posts.map((post, index) => (
               <div className="post-card" key={index}>
+                {post.photos?.map((photo) => (
+                  <section className='img-wrapper' key={photo.id}>
+                    <img 
+                    src={`/api/upload/photo/${photo.id}`} 
+                    alt={photo.title}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = placeholder; 
+                    }}
+                    />
+                  </section>
+                ))}
                 <h2>{post.title}</h2>
                 <p>{post.body}</p>
                 <div className="buttons">

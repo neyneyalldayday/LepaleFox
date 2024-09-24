@@ -70,7 +70,7 @@ export const createMe = async (data) => {
         throw new Error('Network response was not ok');
       }
       const data_1 = await response.json();
-      return data_1.newMessage;
+      return data_1;
     } catch (error) {
       console.error('Error:', error);
       throw error;
@@ -263,5 +263,52 @@ export const createMe = async (data) => {
     } catch (error) {
       console.error('Authentication check failed:', error);
       return false;
+    }
+  }
+
+
+  export const uploadPhoto = async (formData) => {
+    console.log(formData)
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        credentials: 'include',
+        body: formData,       
+      });
+
+      if (!response.ok) {
+        throw new Error('network response was not ok');
+      }
+
+      const uploadData = await response.json();
+      console.log('full response', uploadData)
+      return uploadData;
+      
+    } catch (err) {
+      console.log(err);
+      console.error(err)
+      
+    }
+  }
+
+  export const getPhoto = async (id) => {
+    try {
+      const response = await fetch(`/api/upload/photo/${id}`,{
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('network not ok');
+      }
+      const data = await response.json();
+      if (data) {
+        console.log(data)
+        return data;
+      }
+    } catch (err) {
+      console.log(err)
     }
   }

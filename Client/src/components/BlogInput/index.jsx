@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postIt, viewComments, replyToComment } from "../../utils/Api";
+import PhotoUploadForm from "../PhotoUploadForm";
 import "../../pages/Blog/blog.css";
 
 const BlogInput = () => {
@@ -12,6 +13,7 @@ const BlogInput = () => {
   const [selectedcommentId , setSelectedCommentId] = useState(null);
   const [showInput, setShowInput] = useState(false);
   const [ reply, setReply ] = useState('');
+  const [ postId, setPostId ] = useState(null);
 
   const navigate = useNavigate();
 
@@ -36,25 +38,27 @@ const BlogInput = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = { title: title, body: body };
 
-    postIt(data)
-      .then(() => {        
-        setTitle("");
-        setBody("");
-        setErrorMessage("");
-        navigate("/admin-post");
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-      });
+    try {
+      const response = await postIt(data);
+      console.log(response)
+      setPostId(response.id); 
+      setTitle("");
+      setBody("");
+      setErrorMessage("");
+      // Don't navigate away immediately
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
   };
 
   const handleToBLogs = (e) => {
     e.preventDefault();
+    console.log("go to the page fooo")
     navigate("/admin-post");
   };
 
@@ -67,16 +71,6 @@ const BlogInput = () => {
     setShowInput(!showInput);
     setReply('');
   }
-
-
-  // const handleReply = (e) => {
-  // e.preventDefault()
-  // if (e.target.id === "body"){
-  //   setReply(e.target.value);
-  //   console.log(reply)
-  // }
-  // console.log("did a reply thing")
-  // }
 
   const handleReplySubmit  = async (e) => {
     e.preventDefault();
@@ -114,16 +108,22 @@ const BlogInput = () => {
           onChange={handleInputChange}
         ></textarea>
         <button id="login-btn" type="submit">
-          Submit Post
-        </button>
-        <button onClick={() => handleToBLogs}>See Blogs</button>
+          Add Images +
+        </button>       
         {errorMessage && <p>{errorMessage}</p>}
       </form>
+      {postId && (
+        <section className="photo-component">
+           <PhotoUploadForm postId={postId} />
+        </section>       
+      )}
+       
       <section className="admin-comment-notification">
         <p onClick={toggleComments}>
           {comments.length} comments on posts (click to{" "}
           {showComments ? "hide" : "show"})
         </p>
+        <button onClick={handleToBLogs}>See Blogs</button>
       </section>
       {showComments && (
         <div className="admin-comments-list">
