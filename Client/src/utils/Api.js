@@ -174,7 +174,7 @@ export const createMe = async (data) => {
     if (!response.ok) {
       throw new Error('network not ok');
     }
-    const data = await response.json();
+    const data = await response.json({message: 'post was deleted'});
     if (data) {
       return data;
     }

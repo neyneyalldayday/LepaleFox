@@ -36,14 +36,16 @@ router.delete('/:id', apiGuard, async (req, res) => {
     });
     
     if (Array.isArray(result) && result.length > 0) {
+      console.log(affectedRows, "the fuck is this")
       const [affectedRows] = result;
       if (affectedRows > 0) {
         res.status(200).end();
       } else {
         res.status(404).end();
       }
-    } else {      
-      res.status(404).end(); 
+    } else { 
+      console.log('this?????')     
+      res.status(200).json({message: 'server deleted post'}); 
     }
   } catch (err) {
     console.error(err)
@@ -63,7 +65,7 @@ router.get('/checkposts', async (req,res)=> {
           {model: Reply, attributes: ["body"]}
         ]
       },
-      { model: Photo, attributes: ["id", "title", "description", "data", "postId"] }
+      { model: Photo, attributes: ["id", "title", "description",  "postId"] }
     ]
     });
     console.log('Found Posts:', allmyPosts);
