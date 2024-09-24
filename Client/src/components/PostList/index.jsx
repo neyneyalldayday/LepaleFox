@@ -16,25 +16,26 @@ const PostList = ({ posts, onSelect, isAuthenticated }) => {
     <div className='post-container'>
       {posts.map((post) => (
         <div className='post-card' key={post.id}>
-          {post.photos?.map((photo)=> (
-            <section className='photo-container' key={photo.id}>
-              <p>{photo.description}</p>
-              <div className='img-wrapper'>
-                 <img 
-                 src={`/api/upload/photo/${photo.id}`} 
-                 alt={photo.title} 
-                 onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = placeholder; 
-                }}
-                 />
-              </div>             
-            </section>
-          ))}
+         <section className="photo-container">
+                {post.photos?.map((photo) => (
+                  <section className='img-wrapper' key={photo.id}>
+                    <img 
+                    src={`/api/upload/photo/${photo.id}`} 
+                    alt={photo.title}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = placeholder; 
+                    }}
+                    />
+                  </section>
+                ))}
+                </section>  
+          <section className='post-content'>
+            <h2>{post.title}</h2>
+            <p>{post.body}</p>
+            <p>Date {post.createdAtFormatted}</p>
+          </section>
           
-          <h2>{post.title}</h2>
-          <p>{post.body}</p>
-          <p>Date {post.createdAtFormatted}</p>
           <section className='comment-notification' onClick={(e) => {
             e.stopPropagation();
             toggleComments(post.id);

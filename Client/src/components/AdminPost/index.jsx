@@ -69,8 +69,9 @@ const AdminPost = () => {
           <>
             {posts.map((post, index) => (
               <div className="post-card" key={index}>
+                <section className="photo-container">
                 {post.photos?.map((photo) => (
-                  <section key={photo.id}>
+                  <section  className='img-wrapper' key={photo.id}>
                     <img 
                     src={`/api/upload/photo/${id}`} 
                     alt={photo.title} 
@@ -81,6 +82,7 @@ const AdminPost = () => {
                     />
                   </section>
                 ))}
+                </section>             
                 <section className="post-content">
                   <h2>{post.title}</h2>
                   <p>{post.body}</p>
@@ -97,6 +99,7 @@ const AdminPost = () => {
           <>
             {posts.map((post, index) => (
               <div className="post-card" key={index}>
+                <section className="photo-container">
                 {post.photos?.map((photo) => (
                   <section className='img-wrapper' key={photo.id}>
                     <img 
@@ -109,8 +112,11 @@ const AdminPost = () => {
                     />
                   </section>
                 ))}
+                </section>
+                <section className="post-content">
                 <h2>{post.title}</h2>
                 <p>{post.body}</p>
+                </section>               
                 <div className="buttons">
                   <button onClick={() => handleEditClick(post.id)}>edit</button>
                   <button onClick={() => handleDeleteClick(post.id)}>
