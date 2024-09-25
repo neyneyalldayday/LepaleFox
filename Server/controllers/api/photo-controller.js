@@ -1,6 +1,6 @@
 const multer = require('multer');
 const router = require('express').Router()
-const { Photo } = require('../../models/'); // Adjust the path as needed
+const { Photo } = require('../../models/');
 
 
 // Configure multer for memory storage
@@ -15,7 +15,7 @@ router.post('/', upload.array('photos', 5), async (req, res) => {
     const uploadPromises = req.files.map(file => {
       return Photo.create({
         title: file.originalname,
-        description: req.body.description, // You can modify this to accept multiple descriptions
+        description: req.body.description, 
         data: file.buffer,
         contentType: file.mimetype,
         userId: req.session.userId,
@@ -38,7 +38,7 @@ router.post('/', upload.array('photos', 5), async (req, res) => {
   }
 });
 
-// Example of retrieving a photo
+
 router.get('/photo/:id', async (req, res) => {
   try {
     const photo = await Photo.findByPk(req.params.id, {
@@ -47,7 +47,7 @@ router.get('/photo/:id', async (req, res) => {
     if (!photo) {
       return res.status(404).json({ error: 'Photo not found' });
     }
-    res.setHeader('Content-Type', `image/png || image/jpg`); // Assuming the image format is PNG
+    res.setHeader('Content-Type', `image/png || image/jpg`); 
     res.status(200).send(photo.data);
   } catch (error) {
     console.error('Retrieval error:', error);

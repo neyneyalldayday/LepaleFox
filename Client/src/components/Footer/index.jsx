@@ -8,8 +8,30 @@ import event3 from '../../assets/event3.jpg'
 import event4 from '../../assets/event4.jpg'
 import event5 from '../../assets/event5.jpg'
 import event6 from '../../assets/event6.jpg'
-const Footer
- = () => {
+
+const eventArray = [
+  {
+    imageUrl : event
+  },
+  {
+    imageUrl : event2
+  },
+  {
+    imageUrl : event3
+  },
+  {
+    imageUrl : event4
+  },
+  {
+    imageUrl : event5
+  },
+  {
+    imageUrl : event6
+  },
+]
+
+
+const Footer = () => {
   return (
     <footer className='footer'>
       <div className="social-links">
@@ -24,24 +46,11 @@ const Footer
         </a>
       </div>
       <div className='galery'>
-        <div className='image-container'>
-          <img className='event-image' src={event} alt="" />
-        </div>
-        <div className='image-container'>
-          <img className='event-image' src={event2} alt="" />
-        </div>
-        <div className='image-container'>
-          <img className='event-image' src={event3} alt="" />
-        </div>
-        <div className='image-container'>
-          <img className='event-image' src={event4} alt="" />
-        </div>
-        <div className='image-container'>
-          <img className='event-image' src={event5} alt="" />
-        </div>
-        <div className='image-container'>
-          <img className='event-image' src={event6} alt="" />
-        </div>
+        {eventArray.map((event, index) => (
+          <div key={index} className='image-container'>
+            <img className='event-image' src={event.imageUrl} alt="" />
+          </div>
+        ))}      
       </div>
       <p>&copy; 2024 LePalefox. All rights reserved.</p>
     </footer>

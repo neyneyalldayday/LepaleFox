@@ -7,6 +7,7 @@ const LetMeIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [loggedin, setLoggedin] = useState(false)
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -17,26 +18,31 @@ const LetMeIn = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     
-    const data = { username, password};
+    try {
+      const data = { username, password };
+      
+      await letMeIn(data);
+      
+      
+      setUsername('');
+      setPassword('');
+      setErrorMessage('');
+      setLoggedin(true);
 
-    letMeIn(data)
-      .then(() => {
-        alert('Login successful!');
-        setUsername('');
-        setPassword('');
-        setErrorMessage('');
+      setTimeout(() => {
         navigate('/blog-input');
-      })
-      .catch(error => {
-        setErrorMessage(error.message); 
-      });
-  }
+      }, 2000)
+     
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
+  };
 
   return (
-    <>
+    <div className='form-container'>
       <form className='login-form' onSubmit={handleSubmit}>
         <input
           type="text"
@@ -52,10 +58,15 @@ const LetMeIn = () => {
           value={password}
           onChange={handleInputChange}
         />
-        <button id="login-btn" type="submit">Login</button>
+        <button id="login-btn" type="submit">Login</button>        
         {errorMessage && <p>{errorMessage}</p>}
     </form>
-    </>
+    {loggedin && (
+      <section>
+        <h2>Login successful!!!</h2>
+      </section>
+    )}
+    </div>
   )
 }
 

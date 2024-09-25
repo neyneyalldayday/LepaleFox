@@ -17,14 +17,11 @@ const PhotoUploadForm = ({ postId }) => {
     });
     formData.append('description', description);
     formData.append('postId', postId);
-    try {
-        
+    try {        
       const response = await uploadPhoto(formData);
-      console.log('Upload successful', response.data);
-      // Handle successful upload (e.g., clear form, show success message)
+      console.log('Upload successful', response.data);      
     } catch (error) {
-      console.error('Upload failed', error);
-      // Handle error (e.g., show error message)
+      console.error('Upload failed', error);      
     }
   };
 

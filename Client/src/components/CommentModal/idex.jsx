@@ -1,6 +1,18 @@
 import React, {useState, useEffect} from 'react'
 import {comment} from '../../utils/Api'
-const CommentModal = ({ onClose, handleComment, setIsModalOpen, commentForm, post, updatePostComments }) => {
+
+
+const CommentModal = (
+    {  
+       onClose,
+       handleComment,
+       setIsModalOpen,
+       commentForm,
+       post,
+       updatePostComments
+    }
+  ) => {
+
     const [commentString, setCommentString] = useState(commentForm.body || '')
    
 

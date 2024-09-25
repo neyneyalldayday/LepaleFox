@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { onePost, updatePost } from '../../utils/Api';
 
 const EditPost = ({ postId }) => {
+  
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [errorMessage, setErrorMessage] = useState("");

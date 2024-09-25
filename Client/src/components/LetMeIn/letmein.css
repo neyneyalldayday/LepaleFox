@@ -5,3 +5,9 @@
     padding: 2rem;
     gap: 1rem;
 }
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
