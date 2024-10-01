@@ -28,13 +28,13 @@ app.use(session(sess));
 app.use(express.json());
 app.use(express.urlencoded({ extended : true}));
 
-app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.static(path.join(__dirname, '../Client/dist')));
 
 
 app.use(routes)
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+  res.sendFile(path.join(__dirname, '../Client/dist', 'index.html'));
 });
 
 connection.sync({ force : false}).then(() => {
