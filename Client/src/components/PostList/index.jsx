@@ -54,9 +54,7 @@ const PostList = ({ posts, onSelect, isAuthenticated }) => {
                     <p>From LepaleFox: {reply.body}</p>
                   </section>
                   ))}
-                  </section>
-                  
-                  
+                  </section>                 
                 </div>
               ))}
             </div>
