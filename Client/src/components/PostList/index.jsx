@@ -32,7 +32,7 @@ const PostList = ({ posts, onSelect, isAuthenticated }) => {
                 </section>  
           <section className='post-content'>
             <h2>{post.title}</h2>
-            <p>{post.body}</p>
+            <article>{post.body}</article>
             <p>Date {post.createdAtFormatted}</p>
           </section>
           
@@ -47,7 +47,7 @@ const PostList = ({ posts, onSelect, isAuthenticated }) => {
               {post.comments.map((comment, index) => (
                 <div key={index} className='comment'>
                   <p>{comment.user?.username  || 'Unknown User'}: </p>
-                  <p>{comment.body}</p>
+                  <article>{comment.body}</article>
                   <section className='reply-container'>
                   {comment.replies?.map((reply, index) => (
                     <section key={index} className='replysection'>

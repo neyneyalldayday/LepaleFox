@@ -31,6 +31,7 @@ const LetMeIn = () => {
         setErrorMessage('Account created successfully! You can now log in.');
         setIsSigningUp(false);
       } else {
+        console.log(data)
         await letMeIn(data);
         setLoggedIn(true);
         setErrorMessage('');
