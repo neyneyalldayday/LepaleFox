@@ -142,7 +142,7 @@ export const createMe = async (data) => {
   export const updatePost = async ({id, title, body}) => {
     console.log({id, title, body});
     try {
-        const response = await fetch(`api/post/${id}`, {
+        const response = await fetch(`/api/post/${id}`, {
             method: 'PUT',
             credentials: 'include',
             body: JSON.stringify({title, body}),

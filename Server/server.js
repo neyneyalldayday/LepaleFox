@@ -2,10 +2,22 @@ const express = require('express');
 const path = require('path')
 const connection = require('./config/connection');
 const routes = require('./controllers');
+const cors = require('cors');
 
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
+
+
+
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? 'https://lepalefox.onrender.com' 
+    : 'http://localhost:3000',
+  credentials: true
+}));
+
+
 const PORT = process.env.PORT || 3001;
 
 const sess = {
