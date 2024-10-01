@@ -57,6 +57,7 @@ export const createMe = async (data) => {
 
 // route to post a blog
   export const postIt = async (data) => {
+    console.log(data)
     try {
       const response = await fetch('/api/post/', {
         method: 'POST',
@@ -67,6 +68,7 @@ export const createMe = async (data) => {
         },
       });
       if (!response.ok) {
+        console.log(response)
         throw new Error('Network response was not ok');
       }
       const data_1 = await response.json();

@@ -41,16 +41,21 @@ const BlogInput = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    
+
     const data = { title: title, body: body };
 
     try {
+
+
+      console.log("submit", data)
       const response = await postIt(data);
-      console.log(response)
+      console.log(response, "++++++++++++++++++++++++++++++++++++++++++++++")
       setPostId(response.id); 
       setTitle("");
       setBody("");
       setErrorMessage("");
-      // Don't navigate away immediately
+     
     } catch (error) {
       setErrorMessage(error.message);
     }
