@@ -37,6 +37,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../Client/dist', 'index.html'));
 });
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
 connection.sync({ force : false}).then(() => {
     app.listen(PORT , () => {
         console.log(`were listening on port ${PORT}`);

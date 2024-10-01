@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {letMeIn} from '../../utils/Api'
-import './letmein.css'
+import { letMeIn, createMe } from '../../utils/Api';
+import './letmein.css';
 
 const LetMeIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [loggedin, setLoggedin] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [isSigningUp, setIsSigningUp] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
-    if (e.target.id === 'username') {
-      setUsername(e.target.value);
-    } else if (e.target.id === 'password') {
-      setPassword(e.target.value);
+    const { id, value } = e.target;
+    if (id === 'username') {
+      setUsername(value);
+    } else if (id === 'password') {
+      setPassword(value);
     }
   };
 
@@ -24,21 +26,30 @@ const LetMeIn = () => {
     try {
       const data = { username, password };
       
-      await letMeIn(data);
-      
+      if (isSigningUp) {
+        await createMe(data);
+        setErrorMessage('Account created successfully! You can now log in.');
+        setIsSigningUp(false);
+      } else {
+        await letMeIn(data);
+        setLoggedIn(true);
+        setErrorMessage('');
+
+        setTimeout(() => {
+          navigate('/blog-input');
+        }, 2000);
+      }
       
       setUsername('');
       setPassword('');
-      setErrorMessage('');
-      setLoggedin(true);
-
-      setTimeout(() => {
-        navigate('/blog-input');
-      }, 2000)
-     
     } catch (error) {
       setErrorMessage(error.message);
     }
+  };
+
+  const toggleSignup = () => {
+    setIsSigningUp(!isSigningUp);
+    setErrorMessage('');
   };
 
   return (
@@ -58,17 +69,21 @@ const LetMeIn = () => {
           value={password}
           onChange={handleInputChange}
         />
-        <button id="login-btn" type="submit">Login</button>        
-        {errorMessage && <p>{errorMessage}</p>}
-    </form>
-    {loggedin && (
-      <section>
-        <h2>Login successful!!!</h2>
-      </section>
-    )}
+        <button id="submit-btn" type="submit">
+          {isSigningUp ? 'Sign Up' : 'Login'}
+        </button>
+        <button type="button" onClick={toggleSignup}>
+          {isSigningUp ? 'Switch to Login' : 'Switch to Sign Up'}
+        </button>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+      </form>
+      {loggedIn && (
+        <section>
+          <h2>Login successful!!!</h2>
+        </section>
+      )}
     </div>
-  )
-}
+  );
+};
 
-
-export default LetMeIn
+export default LetMeIn;
