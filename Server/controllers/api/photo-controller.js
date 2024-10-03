@@ -1,7 +1,7 @@
 const multer = require('multer');
 const router = require('express').Router()
 const { Photo } = require('../../models/');
-
+const Sequelize = require('sequelize');
 
 // Configure multer for memory storage
 const upload = multer({ storage: multer.memoryStorage(),
