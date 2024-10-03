@@ -5,7 +5,7 @@ const { Photo } = require('../../models/');
 
 // Configure multer for memory storage
 const upload = multer({ storage: multer.memoryStorage(),
-  limits: { fileSize: 5 * 1024 * 1024 }
+  limits: { fileSize: 25 * 1024 * 1024 }
  });
 
 router.post('/', upload.array('photos', 5), async (req, res) => {
@@ -30,9 +30,8 @@ router.post('/', upload.array('photos', 5), async (req, res) => {
     res.json({
       message: 'Photos uploaded successfully',
       data: {
-        photoIds: uploadedPhotos
-      }
-      
+        photoIds: uploadedPhotos.map(photo => photo.id)
+      }      
     });
   } catch (error) {
     console.error('Upload error:', error);
@@ -46,6 +45,15 @@ router.post('/', upload.array('photos', 5), async (req, res) => {
   }
 });
 
+
+router.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({ error: 'File too large. Max size is 25MB.' });
+    }
+  }
+  res.status(500).json({ error: err.message || 'Something went wrong' });
+});
 
 router.get('/photo/:id', async (req, res) => {
   try {

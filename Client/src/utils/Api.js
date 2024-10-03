@@ -279,13 +279,18 @@ export const createMe = async (data) => {
         body: formData,       
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();        
-        throw new Error(errorData || 'network response was not ok');
-      }
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        const data = await response.json(); 
 
-     
-      return await response.json();      
+        if (!response.ok) {               
+          throw new Error(data.error || 'upload failed!!!');
+        }
+        return data;
+      } else {
+        const text = await response.text();
+        throw new Error(text || 'Upload failed');
+      }       
     } catch (err) {
       console.log(err);
       console.error(err)
