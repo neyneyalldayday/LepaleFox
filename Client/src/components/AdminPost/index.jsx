@@ -36,6 +36,7 @@ const AdminPost = () => {
   };
 
   const handleEditClick = (postId) => {
+    console.log('postiddddd', postId)
     setSelectedPost(postId);
     setIsEditing(true);
   };
@@ -73,7 +74,7 @@ const AdminPost = () => {
                 {post.photos?.map((photo) => (
                   <section  className='img-wrapper' key={photo.id}>
                     <img 
-                    src={`/api/upload/photo/${id}`} 
+                    src={`/api/upload/photo/${photo.id}`} 
                     alt={photo.title} 
                     onError={(e) => {
                       e.target.onerror = null;

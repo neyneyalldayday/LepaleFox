@@ -90,7 +90,12 @@ router.get("/postlist", apiGuard, async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const focusPost = await Post.findByPk(req.params.id, {
-      include: [{ model: Comment, include: [User] }],
+      include: [{ model: Comment,  include: [
+        { model: User, attributes: ["username"] },
+        { model: Reply, attributes: ["body"] },
+      ],
+    },
+    { model: Photo, attributes: ["id", "title", "description", "postId"] }],
     });
     res.status(200).json(focusPost);
   } catch (err) {

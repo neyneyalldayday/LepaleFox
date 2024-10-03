@@ -8,19 +8,23 @@ const EditPost = ({ postId }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    const fetchPostDetails = async () => {
-      try {
-        const singlePost = await onePost(postId);
-        console.log(singlePost.id)    
-      } catch (err) {
-        console.log(err);
-      }
-    };
+
 
     if (postId) {
       fetchPostDetails();
     }
   }, [postId]);
+
+
+
+  const fetchPostDetails = async () => {
+    try {
+      const singlePost = await onePost(postId);
+      console.log(singlePost.id)    
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleInputChange = (e) => {
     if (e.target.id === "title") {
