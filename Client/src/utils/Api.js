@@ -280,16 +280,16 @@ export const createMe = async (data) => {
       });
 
       if (!response.ok) {
-        throw new Error('network response was not ok');
+        const errorData = await response.json();        
+        throw new Error(errorData || 'network response was not ok');
       }
 
-      const uploadData = await response.json();
-      console.log('full response', uploadData)
-      return uploadData;
-      
+     
+      return await response.json();      
     } catch (err) {
       console.log(err);
       console.error(err)
+      throw err
       
     }
   }

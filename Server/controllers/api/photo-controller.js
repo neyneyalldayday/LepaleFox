@@ -4,7 +4,9 @@ const { Photo } = require('../../models/');
 
 
 // Configure multer for memory storage
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({ storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 }
+ });
 
 router.post('/', upload.array('photos', 5), async (req, res) => {
   try {
@@ -34,6 +36,12 @@ router.post('/', upload.array('photos', 5), async (req, res) => {
     });
   } catch (error) {
     console.error('Upload error:', error);
+    if (error instanceof Sequelize.ConnectionError) {
+      return res.status(503).json({ error: 'Database connection error. Please try again later.' });
+    }
+    if (error instanceof Sequelize.DatabaseError) {
+      return res.status(500).json({ error: 'Database error. Please try again later.' });
+    }
     res.status(500).json({ error: 'Error uploading photos' });
   }
 });
