@@ -22,7 +22,14 @@
   background-color: rgb(235, 158, 242);
   padding: .5rem;
   color: rgb(68, 63, 63);
-}
+  overflow: hidden;
+} 
+
+
+
+
+
+
 
 
 .blog-heading{
@@ -126,14 +133,27 @@
     gap: .5rem;
   }
 
-  .photo-container{
+  /* .photo-container{
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
+  } */
+
+  .photo-container {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
   }
 
-  .img-wrapper{
+  .photo-container::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+
+  /* .img-wrapper{
     max-width: 30rem;
     min-width: 5rem;
   }
@@ -141,9 +161,58 @@
   .img-wrapper img{
     width: 100%;
     border-radius: 16px;
+  } */
+
+  .img-wrapper {
+    flex: 0 0 100%;
+    width: 100%;
+    scroll-snap-align: center;
+  }
+  
+  .img-wrapper img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .photo-indicator {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+  }
+  
+  .indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 4px;
+  }
+  
+  .indicator.active {
+    background-color: #333;
   }
 
   .photo-component{
      display: flex;
      justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .photo-container {
+      scroll-padding: 0 10%;
+    }
+  
+    .img-wrapper {
+      flex: 0 0 80%;
+      width: 80%;
+    }
+  
+    .img-wrapper:first-child {
+      margin-left: 10%;
+    }
+  
+    .img-wrapper:last-child {
+      margin-right: 10%;
+    }
   }
