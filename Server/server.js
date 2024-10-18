@@ -10,14 +10,6 @@ const app = express();
 
 
 
-// app.use(cors({
-//   origin: process.env.NODE_ENV === 'production' 
-//     ? 'https://lepalefox.onrender.com' 
-//     : 'http://localhost:3000',
-//   credentials: true
-// }));
-
-
 const PORT = process.env.PORT || 3001;
 
 const sess = {
