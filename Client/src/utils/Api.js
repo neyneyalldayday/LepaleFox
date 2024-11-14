@@ -170,6 +170,7 @@ export const createMe = async (data) => {
 };
 
   export const deletePost = async (id) => {
+    console.log('delete api call' , id)
     const response = await fetch(`/api/post/${id}`, {
       method: 'DELETE',
       credentials: 'include',

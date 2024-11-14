@@ -9,7 +9,7 @@ const AdminPost = () => {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [photos, setPhotos ] = useState([])
+  // const [photos, setPhotos ] = useState([])
 
   useEffect(() => {
         fetchPosts();
