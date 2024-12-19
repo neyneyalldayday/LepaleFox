@@ -79,7 +79,7 @@ export const createMe = async (data) => {
       throw error;
     }
   };
-
+// sup
 // get all posts
   export const allPosts = async (data) => {
     const response = await fetch('/api/post/checkposts', {
