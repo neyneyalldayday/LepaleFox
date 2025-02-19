@@ -1,6 +1,6 @@
 ### 🧵 Fashion Design Portfolio
 
-# Welcome to my Fashion Design Portfolio! This web application showcases my fashion design projects and highlights the technical skills used to create this portfolio site. The project is built with modern web technologies to provide a seamless and responsive user experience.
+# Welcome to LepaleFox Fashion Design Portfolio! This web application showcases my fashion design projects and highlights the technical skills used to create this portfolio site. The project is built with modern web technologies to provide a seamless and responsive user experience.
 
 ### 🚀 Technologies Used
 Frontend: Vite + React
@@ -76,5 +76,8 @@ Feel free to fork this repository and contribute by submitting a pull request. C
 This project is licensed under the MIT License.
 
 ![hero](https://github.com/user-attachments/assets/7b2f55a6-202e-43bf-a648-f84c3a58c0fa)
+
+
+* [Deployment] (https://lepalefox.onrender.com)
 
 Happy coding! 🎉
