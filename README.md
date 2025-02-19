@@ -78,6 +78,6 @@ This project is licensed under the MIT License.
 ![hero](https://github.com/user-attachments/assets/7b2f55a6-202e-43bf-a648-f84c3a58c0fa)
 
 
-* [Deployment] (https://lepalefox.onrender.com)
+* [Deployment](https://lepalefox.onrender.com)
 
 Happy coding! 🎉
