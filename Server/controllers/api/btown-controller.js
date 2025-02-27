@@ -1,15 +1,29 @@
 const router = require("express").Router();
 const {User} = require('../../models');
+const { isAdmin } = require('../../utils/authGuard')
+let isFirstBtown = true;
 
+const protectFirstTimeSignUp = (req, res, next) => {
+  if (!isFirstBtown) {
+    return res.status(403).json({ message: 'Admin sign-up is no longer available' });
+  }
+  next();
+};
 
-router.post('/createme', async (req, res)=> {
+router.post('/createme', protectFirstTimeSignUp, async (req, res)=> {
 try {
-    const createBtown = await User.create(req.body);
+    const createBtown = await User.create({
+      ...req.body,
+      role: 'admin'
+    });
+    
+    isFirstBtown = false;
 
     req.session.save(() => {
         req.session.user_id = createBtown.id;
         req.session.username = createBtown.username;
         req.session.logged_in = true;
+        req.session.role = createBtown.role;
   
         res.status(200).json({createBtown, message:"You are now logged in!"});
       });
@@ -45,6 +59,7 @@ router.post('/letmein', async (req, res)=> {
         req.session.user_id = letInBtown.id;
         req.session.username = letInBtown.username;
         req.session.logged_in = true;
+        req.session.role = letInBtown.role;
   
         res.status(200).json({
           letInBtown,
@@ -88,7 +103,16 @@ router.post('/letmeout', (req, res) => {
     } else {
       res.json(true);
     }
-  })
+  });
+
+  router.get('/admin/dashboard', isAdmin, async (req, res) => {
+    try {
+      res.status(200).json({ message: 'Welcome to the admin dashboard!' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json(err);
+    }
+  });
 
 
 

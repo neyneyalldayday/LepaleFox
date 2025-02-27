@@ -31,14 +31,24 @@ const LetMeIn = () => {
         setErrorMessage('Account created successfully! You can now log in.');
         setIsSigningUp(false);
       } else {
-        console.log(data)
-        await letMeIn(data);
+        const response =  await letMeIn(data);
+        console.log(response)
+        
+        const user = response;
+        localStorage.setItem('user', JSON.stringify(user));
+
         setLoggedIn(true);
         setErrorMessage('');
-
-        setTimeout(() => {
-          navigate('/blog-input');
-        }, 2000);
+        if (user.letInBtown.role === 'admin'){
+          setTimeout(() => {
+            navigate('/dashboard');
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            navigate('/');
+          }, 2000);
+        }
+       
       }
       
       setUsername('');

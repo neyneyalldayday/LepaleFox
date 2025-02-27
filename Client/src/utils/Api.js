@@ -17,7 +17,8 @@ export const letMeIn = async (data) => {
 
       const responseData = await response.json();
       if (responseData.message === 'You are now logged in!') {
-          return responseData.createBtown;
+        console.log(responseData)
+          return responseData;
       } else {
           throw new Error(responseData.message);
       }
@@ -26,6 +27,33 @@ export const letMeIn = async (data) => {
       throw error;
   }
 };
+
+
+export const getAdminDashboard = async (data) => {
+  try {
+    const response = await fetch('/api/btown/admin/dashboard', {
+      method: 'GET',
+      credentials: 'include',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response) {
+      console.log('hit a snag in the fetch')
+    }
+    const data_1 = await response.json()
+    if (data_1) {
+      console.log(data_1)
+      return data_1;
+    }
+    
+  } catch (err) {
+    console.error('Error fetching admin dashboard ',err)
+    throw err
+  }
+}
 
 // signup end point
 export const createMe = async (data) => {

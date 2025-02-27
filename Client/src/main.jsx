@@ -11,6 +11,8 @@ import LetMeIn from './components/LetMeIn/index.jsx'
 import BlogInput from './components/BlogInput/index.jsx'
 import AdminPost from './components/AdminPost/index.jsx'
 import EditPost from './components/EditPost/index.jsx'
+import Dashboard from './pages/AdminDashboard/index.jsx'
+import ProtectedRoute from './components/ProtectedRoute/index.jsx'
 
 
 
@@ -38,15 +40,35 @@ const router = createBrowserRouter([
       },
       {
         path: '/blog-input',
-        element: <BlogInput />
+        element: (
+          <ProtectedRoute>
+            <BlogInput />
+          </ProtectedRoute>
+      ),
       },
       {
         path: '/admin-post',
-        element: <AdminPost />
+        element: (
+          <ProtectedRoute>
+            <AdminPost />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/editpost',
-        element: <EditPost />
+        element: (
+          <ProtectedRoute>
+            <EditPost />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/dashboard',
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
       },
      
     ]

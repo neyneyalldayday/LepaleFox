@@ -27,6 +27,9 @@ User.init(
         len: [8],
       },
     },
+    role: {
+      type: DataTypes.ENUM('admin', 'user'), defaultValue: 'user'
+    },
   },
   {
     hooks: {

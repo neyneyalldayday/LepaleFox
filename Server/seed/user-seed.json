@@ -1,6 +1,7 @@
 [
   {
     "username": "btown",
-    "password": "Lucipur666"
+    "password": "Lucipur666",
+    "role": "admin"
   }  
 ]
