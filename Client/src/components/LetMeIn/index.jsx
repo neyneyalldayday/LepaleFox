@@ -9,6 +9,7 @@ const LetMeIn = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [isSigningUp, setIsSigningUp] = useState(false);
+  
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {

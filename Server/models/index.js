@@ -3,6 +3,7 @@ const Post = require('./Post');
 const Comment = require('./Comment')
 const Reply = require('./Reply')
 const Photo = require('./Photo')
+const Fan = require('./Fan')
 
 
 
@@ -23,7 +24,7 @@ Post.hasMany(Photo, {
 })
 
 
-Comment.belongsTo(User, {
+Comment.belongsTo(Fan, {
     foreignKey: 'userId',
     onDelete: 'CASCADE',
 });
@@ -49,4 +50,4 @@ Photo.belongsTo(User, {
 
 
 
-module.exports = { User, Post, Comment, Reply, Photo }
+module.exports = { User, Post, Comment, Reply, Photo, Fan }

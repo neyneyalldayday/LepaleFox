@@ -1,4 +1,4 @@
-// login end point
+// user stuff
 export const letMeIn = async (data) => {
   console.log("apistuff", data)
   try {
@@ -27,34 +27,6 @@ export const letMeIn = async (data) => {
       throw error;
   }
 };
-
-
-export const getAdminDashboard = async (data) => {
-  try {
-    const response = await fetch('/api/btown/admin/dashboard', {
-      method: 'GET',
-      credentials: 'include',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response) {
-      console.log('hit a snag in the fetch')
-    }
-    const data_1 = await response.json()
-    if (data_1) {
-      console.log(data_1)
-      return data_1;
-    }
-    
-  } catch (err) {
-    console.error('Error fetching admin dashboard ',err)
-    throw err
-  }
-}
-
 // signup end point
 export const createMe = async (data) => {
   console.log(data)
@@ -83,8 +55,47 @@ export const createMe = async (data) => {
       throw error;
   }
 }
+export const isUserAuthenticated = async (id) => {
+  try {
+    const response = await fetch(`/api/btown/oneofme`); 
+    const user = await response.json();
+    console.log(user,"=====================================")
+    return user;
+  } catch (error) {
+    console.error('Authentication check failed:', error);
+    return false;
+  }
+}
 
-// route to post a blog
+export const getAdminDashboard = async (data) => {
+  try {
+    const response = await fetch('/api/btown/admin/dashboard', {
+      method: 'GET',
+      credentials: 'include',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response) {
+      console.log('hit a snag in the fetch')
+    }
+    const data_1 = await response.json()
+    if (data_1) {
+      console.log(data_1)
+      return data_1;
+    }
+    
+  } catch (err) {
+    console.error('Error fetching admin dashboard ',err)
+    throw err
+  }
+}
+
+// =============================================================
+
+// post stuff
   export const postIt = async (data) => {
     console.log(data)
     try {
@@ -213,6 +224,10 @@ export const createMe = async (data) => {
   };
 
 
+  //===========================================================================
+
+
+  //comment stufff
   export const comment = async (data) => {
     console.log(data)
     const postId = data.postId
@@ -285,20 +300,9 @@ export const createMe = async (data) => {
     }
   };
 
+//===========================================================================================
 
-  export const isUserAuthenticated = async (id) => {
-    try {
-      const response = await fetch(`/api/btown/oneofme`); 
-      const user = await response.json();
-      console.log(user,"=====================================")
-      return user;
-    } catch (error) {
-      console.error('Authentication check failed:', error);
-      return false;
-    }
-  }
-
-
+//photo  stuff
   export const uploadPhoto = async (formData) => {
     console.log(formData)
     try {
@@ -349,3 +353,5 @@ export const createMe = async (data) => {
       console.log(err)
     }
   }
+
+  //==============================================================
