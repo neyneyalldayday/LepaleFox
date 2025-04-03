@@ -1,4 +1,5 @@
-// user stuff
+// user stuff ======================================================
+
 export const letMeIn = async (data) => {
   console.log("apistuff", data)
   try {
@@ -55,6 +56,8 @@ export const createMe = async (data) => {
       throw error;
   }
 }
+
+
 export const isUserAuthenticated = async (id) => {
   try {
     const response = await fetch(`/api/btown/oneofme`); 
@@ -93,9 +96,77 @@ export const getAdminDashboard = async (data) => {
   }
 }
 
+//=======================================================================
+
+// userFan end points ==================================================
+
+export const createFan = async (data) => {
+  console.log(data)
+  try {
+    const response = await fetch('/api/fan/createfan', {
+      method: 'POST',
+      credentials: 'include', // Important for including cookies in requests
+      body: JSON.stringify(data),
+      headers: {
+          'Content-Type': 'application/json',
+      },
+  });
+
+  if (!response.ok) {
+      throw new Error('Network response was not ok');
+  }
+
+  const responseData = await response.json();
+  if (responseData.message === 'You are now logged in!') {
+      return responseData.letInBtown;
+  } else {
+      throw new Error(responseData.message);
+  }
+  } catch (error) {
+    console.log('Error:', error);
+      throw error;
+  }
+};
+
+
+
+export const letFanIn = async ( data ) => {
+  console.log("apistuff", data)
+  try {
+      const response = await fetch('/api/fan/letinFan', {
+          method: 'POST',
+          credentials: 'include', // Important for including cookies in requests
+          body: JSON.stringify(data),
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      });
+
+      if (!response.ok) {
+          throw new Error('Network response was not ok');
+      }
+
+      const responseData = await response.json();
+      if (responseData.message === 'You are now logged in!') {
+        console.log(responseData)
+          return responseData;
+      } else {
+          throw new Error(responseData.message);
+      }
+  } catch (error) {
+      console.error('Error:', error);
+      throw error;
+  }
+};
+
+
+//=======================================================================
+
+
 // =============================================================
 
-// post stuff
+// post stuff=============================================================
+
   export const postIt = async (data) => {
     console.log(data)
     try {
@@ -227,7 +298,8 @@ export const getAdminDashboard = async (data) => {
   //===========================================================================
 
 
-  //comment stufff
+  //comment stufff======================================================================
+
   export const comment = async (data) => {
     console.log(data)
     const postId = data.postId
@@ -302,7 +374,8 @@ export const getAdminDashboard = async (data) => {
 
 //===========================================================================================
 
-//photo  stuff
+//photo  stuff===============================================================
+
   export const uploadPhoto = async (formData) => {
     console.log(formData)
     try {

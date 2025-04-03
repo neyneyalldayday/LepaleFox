@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {Fan} = require("../../models");
+const { Fan } = require("../../models");
 
 
 
