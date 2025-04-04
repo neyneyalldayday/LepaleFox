@@ -100,10 +100,10 @@ export const getAdminDashboard = async (data) => {
 
 // userFan end points ==================================================
 
-export const createFan = async (data) => {
-  console.log(data)
+export const createFans = async (data) => {
+  
   try {
-    const response = await fetch('/api/fan/createfan', {
+    const response = await fetch('/api/fan/createFan', {
       method: 'POST',
       credentials: 'include', // Important for including cookies in requests
       body: JSON.stringify(data),
@@ -111,17 +111,22 @@ export const createFan = async (data) => {
           'Content-Type': 'application/json',
       },
   });
-
+ 
   if (!response.ok) {
       throw new Error('Network response was not ok');
   }
 
   const responseData = await response.json();
-  if (responseData.message === 'You are now logged in!') {
-      return responseData.letInBtown;
-  } else {
-      throw new Error(responseData.message);
-  }
+  // console.log("=====================>",responseData)
+  // console.log("=====================>",responseData.message)
+  // console.log("=====================>",responseData.createFan)
+ return responseData.createFan
+ 
+  // if (responseData.message === 'You are now logged in!') {    
+  //     return responseData.createFan;
+  // } else {
+  //     throw new Error(responseData);
+  // }
   } catch (error) {
     console.log('Error:', error);
       throw error;
@@ -147,12 +152,14 @@ export const letFanIn = async ( data ) => {
       }
 
       const responseData = await response.json();
-      if (responseData.message === 'You are now logged in!') {
-        console.log(responseData)
-          return responseData;
-      } else {
-          throw new Error(responseData.message);
-      }
+
+      return responseData;
+      // if (responseData.message === 'You are now logged in!') {
+      //   console.log(responseData)
+      //     return responseData;
+      // } else {
+      //     throw new Error(responseData.message);
+      // }
   } catch (error) {
       console.error('Error:', error);
       throw error;
@@ -201,6 +208,7 @@ export const letFanIn = async ( data ) => {
       },
     });
     if (!response.ok) {
+      console.log(response, "what error message do i need here")
       throw new Error('network not ok');
     }
     const data_1 = await response.json();

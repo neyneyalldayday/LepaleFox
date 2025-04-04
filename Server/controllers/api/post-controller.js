@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Post, Comment, User, Reply, Photo } = require("../../models/");
+const { Post, Comment, User, Reply, Photo, Fan } = require("../../models/");
 const { apiGuard } = require("../../utils/authGuard");
 
 router.post("/", apiGuard, async (req, res) => {
@@ -61,7 +61,7 @@ router.get("/checkposts", async (req, res) => {
         {
           model: Comment,
           include: [
-            { model: User, attributes: ["username"] },
+            { model: Fan, attributes: ["username"] },
             { model: Reply, attributes: ["body"] },
           ],
         },
@@ -91,7 +91,7 @@ router.get("/:id", async (req, res) => {
   try {
     const focusPost = await Post.findByPk(req.params.id, {
       include: [{ model: Comment,  include: [
-        { model: User, attributes: ["username"] },
+        { model: Fan, attributes: ["username"] },
         { model: Reply, attributes: ["body"] },
       ],
     },

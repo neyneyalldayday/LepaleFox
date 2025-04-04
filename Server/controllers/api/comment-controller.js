@@ -1,5 +1,5 @@
 const router =  require('express').Router();
-const { Comment, User } = require('../../models');
+const { Comment, User, Fan } = require('../../models');
 const { apiGuard } = require('../../utils/authGuard')
 
 router.post('/:id', apiGuard, async (req, res) => {
@@ -24,7 +24,7 @@ router.post('/:id', apiGuard, async (req, res) => {
       const allComments = await Comment.findAll({
         include: [
           {
-            model: User, 
+            model: Fan, 
             attributes: ["username"]
           }
         ]

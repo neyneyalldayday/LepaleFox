@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect  } from 'react';
 import placeholder from '../../assets/idk-what-i-did.png'
 
 const PostList = ({ posts, onSelect, isAuthenticated }) => {
-  console.log("postsssss"  , posts)
+
   const [expandedComments, setExpandedComments] = useState({});
   const [activePhotoIndex, setActivePhotoIndex] = useState({});
 
@@ -94,7 +94,7 @@ const PostList = ({ posts, onSelect, isAuthenticated }) => {
             <div className='comments-section'>
               {post.comments.map((comment, index) => (
                 <div key={index} className='comment'>
-                  <p>{comment.user?.username || 'Unknown User'}: </p>
+                  <p>{comment.fan?.username || 'Unknown User'}: </p>
                   <article>{comment.body}</article>
                   <section className='reply-container'>
                   {comment.replies && comment.replies.map((reply, index) => (

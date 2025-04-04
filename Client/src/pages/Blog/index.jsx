@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { allPosts,  createMe, isUserAuthenticated, onePost  } from '../../utils/Api';
+import { allPosts,  createFans, isUserAuthenticated, onePost  } from '../../utils/Api';
 import './blog.css';
 import image3 from '../../assets/image3.jpg';
 import CommentModal from '../../components/CommentModal/idex';
@@ -19,8 +19,7 @@ const Blog = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    fetchPosts();
-    checkAuthentication();
+    fetchPosts();     
   }, []);
 
   const fetchPosts = async () => {
@@ -39,11 +38,11 @@ const Blog = () => {
 
   const checkAuthentication = async () => {
     try {
-      const authStatus = await isUserAuthenticated();
+      const authStatus = await isUserAuthenticated();      
       const isAuth = authStatus.msg !== 'you must login to perform this action';
       setIsAuthenticated(isAuth);
       if (isAuth) {
-        setCurrentUser(authStatus.user);
+        setCurrentUser(authStatus);
       }
     } catch (error) {
       console.error('Failed to check authentication status', error);
@@ -63,11 +62,12 @@ const Blog = () => {
     try {
       console.log(username, password)
     
-      const response = await createMe({username, password});
-      
+      const response = await createFans({username, password});
+     console.log(response)
       setIsSignUpModalOpen(false);
       setIsAuthenticated(true);
-      setCurrentUser(response.user.username)
+      
+      setCurrentUser(response.username)
 
       if(selectedPost){
         setIsModalOpen(true)
@@ -88,7 +88,8 @@ const Blog = () => {
     }))     
   }
 
-  const updatePostComments = async (postId, newComment) => {
+  const updatePostComments = async (postId, newComment) => { 
+    checkAuthentication();
     try {
       const updatedPost = await onePost(postId);
       setPosts(prevPosts => prevPosts.map(post => 
@@ -99,7 +100,8 @@ const Blog = () => {
     }
   };
 
-  const handlePostSelection = async ({ post, postId }) => {
+  const handlePostSelection = async ({ post, postId }) => { 
+    checkAuthentication();
     setSelectedPost({ post, postId });
     
     if (isAuthenticated) {

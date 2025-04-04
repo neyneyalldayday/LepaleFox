@@ -3,7 +3,7 @@ const { Fan } = require("../../models");
 
 
 
-router.post('/createfan', async (req, res) => {
+router.post('/createFan', async (req, res) => {
 try {
     const createFan = await Fan.create(req.body);
 
@@ -16,7 +16,7 @@ try {
         res.status(200).json({createFan, message:"you are now logged in"})
     })
 } catch (err) {
-    console.error(err);
+    console.error("hit the catch",err);
     res.status(500).json(err)
 }
 })
