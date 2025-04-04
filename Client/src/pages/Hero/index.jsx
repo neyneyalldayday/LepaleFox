@@ -1,11 +1,38 @@
-import image from '../../assets/idk-what-i-did.png'
+
 import './hero.css'
 const Hero = () => {
   return (
-    <div className='hero-container'>
-      <img id="hero" src={image} alt="" />
+    <div className='hero-container'>    
       <div className='hero-content'>
-      <h1><span className="animated-char">L</span><span className="animated-char">e</span><span className="animated-char">P</span><span className="animated-char">a</span><span className="animated-char">l</span><span className="animated-char">e</span><span className="animated-char">f</span><span className="animated-char">o</span><span className="animated-char">x</span></h1>
+      <h1>
+        <span  className="animated-char char1">
+          L
+        </span>
+        <span  className="animated-char char2">
+          e
+        </span>
+        <span  className="animated-char char3">
+          P
+        </span>
+        <span  className="animated-char char4">
+          a
+        </span>
+        <span  className="animated-char char5">
+          l
+        </span>
+        <span  className="animated-char char6">
+          e
+        </span>
+        <span  className="animated-char char7">
+          f
+        </span>
+        <span  className="animated-char char8">
+          o
+        </span>
+        <span  className="animated-char char9">
+          x
+        </span>
+      </h1>
       </div>
     </div>
   )

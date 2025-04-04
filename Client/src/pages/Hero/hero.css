@@ -2,6 +2,10 @@
     background-color: blueviolet;
     margin-top: 0;
     position: relative;
+    background-image: url('../../assets/idk-what-i-did.png');
+    height: 80vh;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #hero{
@@ -9,6 +13,32 @@
  
     
 }
+
+
+@keyframes colorPulse {
+  0% {
+    text-shadow: 
+      0 0 8px rgba(255, 105, 180, 0.8), /* Pink */
+      0 0 4px rgba(255, 105, 180, 0.6),
+      0 0 6px rgba(255, 255, 255, 0.4),
+      0 0 2px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    text-shadow: 
+      0 0 8px rgba(186, 85, 211, 0.8), /* Intermediate purple */
+      0 0 4px rgba(186, 85, 211, 0.6),
+      0 0 6px rgba(255, 255, 255, 0.4),
+      0 0 2px rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    text-shadow: 
+      0 0 8px rgba(128, 0, 128, 0.8), /* Deep purple */
+      0 0 4px rgba(128, 0, 128, 0.6),
+      0 0 6px rgba(255, 255, 255, 0.4),
+      0 0 2px rgba(255, 255, 255, 0.2);
+  }
+}
+
 .hero-content{
     position:absolute;
     top:50%;
@@ -21,6 +51,7 @@
     0 0 2px rgba(255, 255, 255, 0.2); 
     color: rgb(150, 148, 158);
     font-size: 1em;
+    
 }
 
 
@@ -41,8 +72,45 @@
   
   .animated-char {
     display: inline-block;
-    animation: dropIn 3s ease-out forwards;
+    animation: dropIn 3s ease-out forwards;    
     animation-fill-mode: forwards;
+  }
+
+  .char1{
+    animation: dropIn 3s ease-out forwards,
+     colorPulse 2s ease-in-out 3s infinite alternate;
+  }
+  .char2{
+    animation: dropIn 3s ease-out forwards,
+    colorPulse 1s ease-in-out 3s infinite alternate;
+  }
+  .char3{
+    animation: dropIn 3s ease-out forwards,
+     colorPulse 4s ease-in-out 3s infinite alternate;
+  }
+  .char4{
+    animation: dropIn 3s ease-out forwards,
+     colorPulse 4s ease-in-out 3s infinite alternate;
+  }
+  .char5{
+    animation: dropIn 3s ease-out forwards,
+     colorPulse 2s ease-in-out 3s infinite alternate;
+  }
+  .char6{
+    animation: dropIn 3s ease-out forwards,
+     colorPulse 2s ease-in-out 3s infinite alternate;
+  }
+  .char7{
+    animation: dropIn 3s ease-out forwards,
+     colorPulse 1s ease-in-out 3s infinite alternate;
+  }
+  .char8{
+    animation: dropIn 3s ease-out forwards,
+     colorPulse 1s ease-in-out 3s infinite alternate;
+  }
+  .char9{
+    animation: dropIn 3s ease-out forwards,
+    colorPulse 3s ease-in-out 3s infinite alternate;
   }
 
 
@@ -71,5 +139,14 @@
   @media screen and (max-width: 395px) {
     .hero-content{
       font-size: .50rem;
+      border: black 4px solid;
+    }
+  }
+
+
+  @media screen and (min-width: 1000px){
+    .hero-content{
+      font-size: 1.5em;
+      
     }
   }
