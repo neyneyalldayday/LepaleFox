@@ -5,6 +5,8 @@ const SignUpModal = ({
     setUsername,
     password,
     setPassword,
+    isSigningUp,
+    toggleSignup
   }) => {
     return (
       <div className="modal">
@@ -30,7 +32,12 @@ const SignUpModal = ({
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit">
+              {isSigningUp ? 'Sign Up' : 'Login'}
+            </button>
+            <button type="button" onClick={toggleSignup}>
+              {isSigningUp ? 'Switch to Login' : 'Switch to Signup'}
+            </button>
           </form>
         </div>
       </div>

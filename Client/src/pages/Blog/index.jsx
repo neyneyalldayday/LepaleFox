@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { allPosts,  createFans, isUserAuthenticated, onePost  } from '../../utils/Api';
+import { allPosts,  createFans,letFanIn, isUserAuthenticated, onePost  } from '../../utils/Api';
 import './blog.css';
 import image3 from '../../assets/image3.jpg';
 import CommentModal from '../../components/CommentModal/idex';
@@ -17,6 +17,7 @@ const Blog = () => {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [isSigningUp, setIsSigningUp] = useState(true);
 
   useEffect(() => {
     fetchPosts();     
@@ -61,24 +62,35 @@ const Blog = () => {
     
     try {
       console.log(username, password)
-    
+     if(isSigningUp){
       const response = await createFans({username, password});
-     console.log(response)
-      setIsSignUpModalOpen(false);
-      setIsAuthenticated(true);
+      console.log(response)
+       setIsSignUpModalOpen(false);
+       setIsAuthenticated(true);
+       
+       setCurrentUser(response.username)
+ 
+       if(selectedPost){
+         setIsModalOpen(true)
+       }
+ 
+       setUsername("");
+       setPassword("");
+     } else {
+      const response = await letFanIn({username, password});
+      console.log(response);
+
       
-      setCurrentUser(response.username)
-
-      if(selectedPost){
-        setIsModalOpen(true)
-      }
-
-      setUsername("");
-      setPassword("");
+     }
+      
     } catch (error) {
       console.error("Failed to sign up user", error);
     }
   };
+
+const  toggleSignup = () => {
+  setIsSigningUp(!isSigningUp)
+}
 
 
   const handleComment = async (event) => {  
@@ -145,6 +157,8 @@ const Blog = () => {
               setUsername={setUsername}
               password={password}
               setPassword={setPassword}
+              isSigningUp={isSigningUp}
+              toggleSignup={toggleSignup}
             />
           )}
     </>

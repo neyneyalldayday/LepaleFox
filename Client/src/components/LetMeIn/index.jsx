@@ -48,10 +48,8 @@ const LetMeIn = () => {
           setTimeout(() => {
             navigate('/');
           }, 2000);
-        }
-       
-      }
-      
+        }       
+      }      
       setUsername('');
       setPassword('');
     } catch (error) {
