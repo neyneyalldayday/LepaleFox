@@ -9,9 +9,7 @@
 }
 
 #hero{
-  width: 35rem;
- 
-    
+  width: 35rem;    
 }
 
 
@@ -119,8 +117,7 @@
     #hero{
       width: 100%;
     }
-
-
+    
     .hero-content{
       position:absolute;
       top:50%;
@@ -138,15 +135,13 @@
 
   @media screen and (max-width: 395px) {
     .hero-content{
-      font-size: .50rem;
-      border: black 4px solid;
+      font-size: .50rem;      
     }
   }
 
 
   @media screen and (min-width: 1000px){
     .hero-content{
-      font-size: 1.5em;
-      
+      font-size: 1.5em;      
     }
   }
