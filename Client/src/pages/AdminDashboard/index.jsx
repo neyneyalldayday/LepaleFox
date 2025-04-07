@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { getAdminDashboard } from '../../utils/Api'
 import { Link } from 'react-router-dom';
+import "./admin-dash.css"
 
 const Dashboard = () => {
     const [message, setMessage] = useState('');
@@ -24,23 +25,22 @@ const Dashboard = () => {
   return (
     <div>
       <h1>Admin Dashboard</h1>
-      <div>
-        <ul>
-        <li>
-            <Link to='/blog-input'>make a post</Link>
-        </li>
-        <li>
-            <Link to='editpost' >edit/delete post</Link>
-        </li>
-        <li>
-            <Link to='admin-post' >view posts</Link>
-        </li>
-        </ul>
-       
+      <div className="dashboard-container">
+         <ul className='dashboard-list'>
+          <li className='dashboard-item'>
+             <Link className='dashboard-link' to='/blog-input'>make a post</Link>
+          </li>
+          <li className='dashboard-item'>
+              <Link className='dashboard-link' to='/editpost' >edit/delete post</Link>
+          </li>
+          <li className='dashboard-item'>
+              <Link className='dashboard-link' to='/admin-post' >view posts</Link>
+          </li>
+        </ul>       
       </div>
       {error ? (
         <p style={{ color: 'red' }}>{error}</p>
-      ) : (
+          ) : (
         <p>{message}</p>
       )}
     </div>

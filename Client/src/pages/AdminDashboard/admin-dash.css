@@ -1,0 +1,49 @@
+.dashboard-list{
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@keyframes colorPulse {
+    0% {
+      box-shadow: 
+        0 0 8px rgba(255, 105, 180, 0.8), /* Pink */
+        0 0 4px rgba(255, 105, 180, 0.6),
+        0 0 6px rgba(255, 255, 255, 0.4),
+        0 0 2px rgba(255, 255, 255, 0.2);
+    }
+    50% {
+      box-shadow: 
+        0 0 8px rgba(186, 85, 211, 0.8), /* Intermediate purple */
+        0 0 4px rgba(186, 85, 211, 0.6),
+        0 0 6px rgba(255, 255, 255, 0.4),
+        0 0 2px rgba(255, 255, 255, 0.2);
+    }
+    100% {
+      box-shadow: 
+        0 0 8px rgba(128, 0, 128, 0.8), /* Deep purple */
+        0 0 4px rgba(128, 0, 128, 0.6),
+        0 0 6px rgba(255, 255, 255, 0.4),
+        0 0 2px rgba(255, 255, 255, 0.2);
+    }
+  }
+
+.dashboard-item{
+    list-style: none;
+    box-shadow: 8px 4px 7px rgba(255,255,255, 0.3);
+    border-radius: 16px;
+    padding: 5rem;
+    animation: colorPulse  ease-in-out 3s infinite alternate;
+    
+}
+.dashboard-item:hover{
+    cursor: pointer;
+}
+
+
+.dashboard-link{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.87);
+}
