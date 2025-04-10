@@ -6,7 +6,7 @@
     flex-wrap: wrap;
 }
 
-@keyframes colorPulse {
+@keyframes colorPulseBorder {
     0% {
       box-shadow: 
         0 0 8px rgba(255, 105, 180, 0.8), /* Pink */
@@ -35,7 +35,7 @@
     box-shadow: 8px 4px 7px rgba(255,255,255, 0.3);
     border-radius: 16px;
     padding: 5rem;
-    animation: colorPulse  ease-in-out 3s infinite alternate;
+    animation: colorPulseBorder  ease-in-out 3s infinite alternate;
     
 }
 .dashboard-item:hover{
