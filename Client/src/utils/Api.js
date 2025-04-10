@@ -303,6 +303,21 @@ export const letFanIn = async ( data ) => {
   };
 
 
+  export const postItWithPhotos = async (formData) => {
+    const response = await fetch('/api/upload/with-photos', {
+      method: 'POST',
+      body: formData, // No Content-Type header - browser sets it automatically
+      credentials: 'include',      
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to create post');
+    }
+    
+    return response.json();
+  };
+
   //===========================================================================
 
 

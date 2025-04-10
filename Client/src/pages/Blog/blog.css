@@ -194,6 +194,34 @@
      justify-content: center;
   }
 
+
+  /* Add to your blog.css */
+.photo-upload-section {
+  margin: 1rem 0;
+}
+
+.upload-label {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #8d39d1;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.upload-label:hover {
+  background: #b3399a;
+}
+
+#photo-upload {
+  display: none; /* Hide the default file input */
+}
+
+.error-message {
+  color: red;
+  margin-top: 0.5rem;
+}
+
   @media (min-width: 768px) {
     .photo-container {
         flex-wrap: wrap;

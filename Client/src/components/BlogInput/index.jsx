@@ -1,25 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { postIt, viewComments, replyToComment } from "../../utils/Api";
-import PhotoUploadForm from "../PhotoUploadForm";
+import { postIt, postItWithPhotos , viewComments, replyToComment } from "../../utils/Api";
+
 import "../../pages/Blog/blog.css";
 
 const BlogInput = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [files, setFiles] = useState([]);
+  const [description, setDescription] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
   const [selectedcommentId , setSelectedCommentId] = useState(null);
   const [showInput, setShowInput] = useState(false);
-  const [ reply, setReply ] = useState('');
-  const [ postId, setPostId ] = useState(null);
+  const [ reply, setReply ] = useState(''); 
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     handleComments();
   }, []);
+
+  const handleFileChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    const validFiles = selectedFiles.filter(file => 
+      ['image/jpeg', 'image/png', 'image/gif'].includes(file.type)
+    );
+    
+    setFiles(validFiles);
+
+    if (validFiles.length < selectedFiles.length) {
+      alert('Some files were rejected - only images (JPEG, PNG, GIF) are allowed');
+    }
+  };
 
   const handleComments = async () => {
     try {
@@ -39,25 +54,37 @@ const BlogInput = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();   
+    setLoading(true);
+    setErrorMessage('')
 
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('body', body);
+    formData.append('description', description);
     
+    files.forEach((file) => {
+      formData.append('photos', file);
+    });
 
-    const data = { title: title, body: body };
+   
 
     try {
-
-
-      console.log("submit", data)
-      const response = await postIt(data);
-      console.log(response, "++++++++++++++++++++++++++++++++++++++++++++++")
-      setPostId(response.id); 
+      const response = await postItWithPhotos(formData);
+      console.log("Submission successful", response);
+      
+      // Reset form on success
       setTitle("");
       setBody("");
-      setErrorMessage("");
-     
+      setDescription("");
+      setFiles([]);
+      
+      // Navigate or show success message
+      navigate("/admin-post");    
     } catch (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(error.message || "submission failed");
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -98,30 +125,52 @@ const BlogInput = () => {
 
   return (
     <>
-      <form className="post-form" onSubmit={handleSubmit}>
+    <form className="post-form" onSubmit={handleSubmit}>
         <input
           type="text"
           id="title"
-          placeholder="title"
+          placeholder="Title"
           value={title}
-          onChange={handleInputChange}
+          onChange={(e) => setTitle(e.target.value)}
+          required
         />
         <textarea
           id="body"
-          placeholder="body of post"
+          placeholder="Body of post"
           value={body}
-          onChange={handleInputChange}
+          onChange={(e) => setBody(e.target.value)}
+          required
         ></textarea>
-        <button id="login-btn" type="submit">
-          Add Images +
-        </button>       
-        {errorMessage && <p>{errorMessage}</p>}
+        
+        {/* Photo upload section */}
+        <div className="photo-upload-section">
+          <input 
+            type="file" 
+            multiple 
+            onChange={handleFileChange} 
+            id="photo-upload"
+          />
+          <label htmlFor="photo-upload" className="upload-label">
+            {files.length > 0 
+              ? `${files.length} file(s) selected` 
+              : "Select images (optional)"}
+          </label>
+          
+          {files.length > 0 && (
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Photo description (optional)"
+            />
+          )}
+        </div>
+        
+        <button id="login-btn" type="submit" disabled={loading}>
+          {loading ? "Publishing..." : "Publish Post"}
+        </button>
+        
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
-      {postId && (
-        <section className="photo-component">
-           <PhotoUploadForm postId={postId} />
-        </section>       
-      )}
        
       <section className="admin-comment-notification">
         <p onClick={toggleComments}>
