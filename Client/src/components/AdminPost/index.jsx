@@ -4,11 +4,13 @@ import image3 from "../../assets/image3.jpg";
 import { allPosts, deletePost, getPhoto } from "../../utils/Api";
 import EditPost from "../EditPost";
 import placeholder from '../../assets/idk-what-i-did.png?url'
+import  Spinner  from '../Spinner'
 
 const AdminPost = () => {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [photosLoading, setPhotosLoading] = useState({})
   // const [photos, setPhotos ] = useState([])
 
   useEffect(() => {
@@ -73,14 +75,17 @@ const AdminPost = () => {
                 <section className="photo-container">
                 {post.photos?.map((photo) => (
                   <section  className='img-wrapper' key={photo.id}>
-                    <img 
-                    src={`/api/upload/photo/${photo.id}`} 
-                    alt={photo.title} 
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = placeholder; 
-                    }}
-                    />
+                    {photosLoading[photo.id] ? ( <Spinner />) : (
+                      <img 
+                      src={`/api/upload/photo/${photo.id}`} 
+                      alt={photo.title} 
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = placeholder; 
+                      }}
+                      />
+                    )}
+                    
                   </section>
                 ))}
                 </section>             
