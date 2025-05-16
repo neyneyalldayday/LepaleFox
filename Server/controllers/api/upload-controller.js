@@ -8,7 +8,7 @@ const { apiGuard } = require("../../utils/authGuard")
 const upload = multer({
     storage: multer.memoryStorage(),
     limits: {
-      fileSize: 5 * 1024 * 1024, // 5MB limit per file
+      fileSize: 25 * 1024 * 1024, // 5MB limit per file
     },
     fileFilter: (req, file, cb) => {
       if (['image/jpeg', 'image/png', 'image/gif'].includes(file.mimetype)) {
@@ -82,7 +82,7 @@ const upload = multer({
       
       // Handle different error types
       if (err.message.includes('file size')) {
-        res.status(400).json({ error: 'File too large (max 5MB)' });
+        res.status(400).json({ error: 'File too large (max 25MB)' });
       } else if (err.message.includes('Invalid file type')) {
         res.status(400).json({ error: 'Only JPEG, PNG, or GIF images allowed' });
       } else if (err.message.includes('required')) {

@@ -309,11 +309,15 @@ export const letFanIn = async ( data ) => {
       body: formData, // No Content-Type header - browser sets it automatically
       credentials: 'include',      
     });
+
+    console.log(response)
     
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.message || 'Failed to create post');
     }
+
+    
     
     return response.json();
   };
