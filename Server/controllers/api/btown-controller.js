@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {User} = require('../../models');
-const { isAdmin } = require('../../utils/authGuard')
+const { isAdmin, apiGuard } = require('../../utils/authGuard')
 let isFirstBtown = true;
 
 const protectFirstTimeSignUp = (req, res, next) => {
@@ -105,7 +105,7 @@ router.post('/letmeout', (req, res) => {
     }
   });
 
-  router.get('/admin/dashboard', isAdmin, async (req, res) => {
+  router.get('/admin/dashboard', apiGuard, isAdmin, async (req, res) => {
     try {
       res.status(200).json({ message: 'Welcome to the admin dashboard!' });
     } catch (err) {
