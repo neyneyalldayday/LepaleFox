@@ -74,7 +74,7 @@ const AdminPost = () => {
                 {post.photos?.map((photo) => (
                   <section  className='img-wrapper' key={photo.id}>
                     <img 
-                    src={`${import.meta.env.VITE_API_URL}/api/upload/photo/${photo.id}`} 
+                    src={`/api/upload/photo/${photo.id}`} 
                     alt={photo.title} 
                     onError={(e) => {
                       e.target.onerror = null;
