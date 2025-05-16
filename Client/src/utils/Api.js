@@ -293,6 +293,7 @@ export const letFanIn = async ( data ) => {
       method: 'DELETE',
       credentials: 'include',
     });
+    console.log(response)
     if (!response.ok) {
       throw new Error('network not ok');
     }

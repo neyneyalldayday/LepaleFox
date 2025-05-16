@@ -30,27 +30,17 @@ router.put("/:id", apiGuard, async (req, res) => {
 
 router.delete("/:id", apiGuard, async (req, res) => {
   try {
-    const result = await Post.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
+   const deletedCount = await Post.destroy({
+    where: { id: req.params.id}
+   });
 
-    if (Array.isArray(result) && result.length > 0) {
-      console.log(affectedRows, "the fuck is this");
-      const [affectedRows] = result;
-      if (affectedRows > 0) {
-        res.status(200).end();
-      } else {
-        res.status(404).end();
-      }
-    } else {
-      console.log("this?????");
-      res.status(200).json({ message: "server deleted post" });
-    }
+   if (deletedCount > 0 ) {
+    return res.status(200).json({ message: 'Post Deleted Successfully'})
+   }
+   return res.status(404).json({message: 'Post not found'})
   } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
+    console.error("DELETE post error: ",err);
+    res.status(500).json({error: 'Server error'});
   }
 });
 
