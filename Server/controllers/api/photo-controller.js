@@ -2,6 +2,7 @@ const multer = require('multer');
 const router = require('express').Router()
 const { Photo } = require('../../models/');
 const Sequelize = require('sequelize');
+const sequelize = require('../../config/connection');
 
 // Configure multer for memory storage
 const upload = multer({ storage: multer.memoryStorage(),
@@ -71,20 +72,53 @@ router.get('/photo/:id', async (req, res) => {
   }
 })
 
-router.get('/photo', async (req, res) => {
-  try {
-    const photos = await Photo.findAll();
-    if (!photos) {
-      return res.status(404).json({ error: 'Photo not found' });
-    }
-    const photoArray = photos.map((photo) => photo.get({plain: true}))
-    console.log(photoArray)
-    res.status(200).json(photoArray)
-  } catch (error) {
-    console.error('Retrieval error:', error);
-    res.status(500).json({ error: 'Error retrieving photo' });
-  }
-})
+// router.get('/photo', async (req, res) => {
+//   try {
+//     const photos = await Photo.findAll();
+//     if (!photos) {
+//       return res.status(404).json({ error: 'Photo not found' });
+//     }
+//     const photoArray = photos.map((photo) => photo.get({plain: true}))
+//     console.log(photoArray)
+//     res.status(200).json(photoArray)
+//   } catch (error) {
+//     console.error('Retrieval error:', error);
+//     res.status(500).json({ error: 'Error retrieving photo' });
+//   }
+// })
 
+router.get('/photo', async (req, res) => {
+  let transaction;
+  try {
+    transaction = await sequelize.transaction();
+    
+    const photos = await Photo.findAll({ 
+      transaction,
+      attributes: ['id', 'title', 'contentType', 'createdAt'] // Don't select binary data!
+    });
+
+    if (!photos.length) {
+      await transaction.commit();
+      return res.status(404).json({ error: 'No photos found' });
+    }
+
+    await transaction.commit();
+    res.json(photos.map(p => p.get({ plain: true })));
+    
+  } catch (error) {
+    if (transaction) await transaction.rollback();
+    
+    console.error('Photo retrieval failed:', error);
+    
+    // Handle recovery mode specifically
+    if (error.message.includes('recovery mode')) {
+      return res.status(503).json({ 
+        error: 'Database maintenance in progress. Try again later.' 
+      });
+    }
+    
+    res.status(500).json({ error: 'Database error' });
+  }
+});
 
 module.exports = router;
