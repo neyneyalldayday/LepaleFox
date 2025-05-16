@@ -28,7 +28,7 @@ User.init(
       },
     },
     role: {
-      type: DataTypes.ENUM('admin', 'user'), defaultValue: 'admin'
+      type: DataTypes.ENUM('admin', 'user'), defaultValue: 'user'
     },
   },
   {
