@@ -3,7 +3,7 @@ import "../../pages/Blog/blog.css";
 import image3 from "../../assets/image3.jpg";
 import { allPosts, deletePost, getPhoto } from "../../utils/Api";
 import EditPost from "../EditPost";
-import placeholder from '../../assets/idk-what-i-did.png'
+import placeholder from '../../assets/idk-what-i-did.png?url'
 
 const AdminPost = () => {
   const [posts, setPosts] = useState([]);
@@ -74,7 +74,7 @@ const AdminPost = () => {
                 {post.photos?.map((photo) => (
                   <section  className='img-wrapper' key={photo.id}>
                     <img 
-                    src={`/api/upload/photo/${photo.id}`} 
+                    src={`${import.meta.env.VITE_API_URL}/api/upload/photo/${photo.id}`} 
                     alt={photo.title} 
                     onError={(e) => {
                       e.target.onerror = null;

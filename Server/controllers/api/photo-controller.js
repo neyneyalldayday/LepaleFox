@@ -58,16 +58,16 @@ router.use((err, req, res, next) => {
 router.get('/photo/:id', async (req, res) => {
   try {
     const photo = await Photo.findByPk(req.params.id, {
-      attributes: ['data']
+      attributes: ['data', 'contentType']
     });
     if (!photo) {
       return res.status(404).json({ error: 'Photo not found' });
     }
-    res.setHeader('Content-Type', `image/png || image/jpg`); 
-    res.status(200).send(photo.data);
+    res.set('Content-Type', photo.contentType);
+    return res.status(200).send(photo.data);
   } catch (error) {
     console.error('Retrieval error:', error);
-    res.status(500).json({ error: 'Error retrieving photo' });
+    return res.status(500).json({ error: 'Error retrieving photo' });
   }
 })
 
