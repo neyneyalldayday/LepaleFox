@@ -5,6 +5,16 @@
     background-color: rgb(197, 223, 247);
     margin-top: 0;
     margin-bottom: 0;
+    mask-image: linear-gradient(
+        to bottom,
+        rgb(27, 21, 21) 90%,
+        transparent 125%
+    );
+    background-image: url('../../assets/croppedImgBtownSkirt.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-text-stroke: .5px rgb(63, 59, 59);
+   
 }
 
 .nav li {
