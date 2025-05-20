@@ -126,8 +126,7 @@ const  toggleSignup = () => {
   return (
     <>
       <div className='image-container'>
-        <img className='blog-image' src={image3} alt="" />
-        
+        <img className='blog-image' src={image3} alt="" />        
         <div className='blog-heading'>
           <h1>Blog</h1>          
         </div>
